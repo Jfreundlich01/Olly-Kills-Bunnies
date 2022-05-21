@@ -124,11 +124,15 @@ window.addEventListener("DOMContentLoaded", function(){
        oly = new Oly(900,620,'Grey',40,40,3);
        //const floor = document.querySelector(".floor")
        //floor.style.backgroundImage = "url('../img/betterGrass.png')"; // Oly was rendering under the floor. Tried to get it so he would redner after floor img loaded. Didn't work. Will revist later. 
-       bunny1 = new Character(100,100,"white",20,20,.5)
+       bunny1 = new Character(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
+       bunny2 = new Character(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
+       bunny3 = new Character(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
         // floor.onload = function(){
         // }
         oly.render();
         bunny1.render();
+        bunny2.render();
+        bunny3.render();
         console.log(oly)
         console.log(bunny1)
 
@@ -176,7 +180,11 @@ function gameLoop(){
     ctx.clearRect(0,0, game.width, game.height)
     oly.render();
     bunny1.render();
+    bunny2.render();
+    bunny3.render();
     detectHit(oly,bunny1)
+    detectHit(oly,bunny2)
+    detectHit(oly,bunny3)
     
 }
 
@@ -191,9 +199,9 @@ function detectHit(p1,p2){
         console.log("Hit")
         if(oly.bite){
             console.log("Hit and Bit")
-            bunny1.color = "red"
-            bunny1.x = oly.x
-            bunny1.y = oly.y
+            p2.color = "red"
+            p2.x = oly.x
+            p2.y = oly.y
         }
     } else {
 

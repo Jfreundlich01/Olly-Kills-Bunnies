@@ -12,7 +12,7 @@ You have a powerful bite, that can take down a bunny in one go.
 How ever when you are carrying a bunny, you slow down a bit. 
 You can drop the bunny and pick your speed back up. 
 
-## Obstacles//
+## Obstacles
 
 Coyotes:
 Beware. While you are known on the block for being the most ferocious feline, another beast lies in wait for you to let you guard down. A slower moving predator, hunts you with every move. 
