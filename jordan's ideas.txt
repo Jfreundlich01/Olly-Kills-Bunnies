@@ -81,6 +81,7 @@ Game board
         -class Bunny extends Character{
             constructor(img,speed,x,y){
                 die();
+                scoreCount();
             }
         }
         
