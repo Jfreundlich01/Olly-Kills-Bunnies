@@ -193,6 +193,7 @@ function moveHandler2(e){
     }
 }
 
+//coyote will hunt you!
 function coyoteHunt(){
     if(coyote.x < oly.x){
         coyote.x += 5 * coyote.speed
@@ -221,6 +222,7 @@ function gameLoop(){
     detectHit(oly,bunny1)
     detectHit(oly,bunny2)
     detectHit(oly,bunny3)
+    detectHit(oly,coyote)
     coyoteHunt();
     
 }
@@ -241,6 +243,10 @@ function detectHit(p1,p2){
             //attach bunnies to Oly
             p2.x = oly.x
             p2.y = oly.y
+        } else if (p2 === coyote){
+            //stand in place for end game message
+            console.log("The Coyote Got you!")
+            oly.color = "red"
         }
     } else {
 
