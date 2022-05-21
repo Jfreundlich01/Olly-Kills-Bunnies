@@ -192,6 +192,8 @@ function detectHit(p1,p2){
         if(oly.bite){
             console.log("Hit and Bit")
             bunny1.color = "red"
+            bunny1.x = oly.x
+            bunny1.y = oly.y
         }
     } else {
 
