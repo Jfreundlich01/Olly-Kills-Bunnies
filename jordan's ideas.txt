@@ -1,0 +1,172 @@
+My plan/Free Flowing thoughts
+Objective Overview: 
+///////////////////////
+
+You are Oly. It is Spring time! Your favorite time of the year. Your goal is to kill as many bunnies as possible, and bring as many dead lifeless bodies to the stoop before your owner, Kate wakes up in the morning.
+
+Player Structure/Movement: 
+
+You are a fast cat. You are in your prime and very agile. 
+You move with the arrow keys. 
+You have a powerful bite, that can take down a bunny in one go. 
+How ever when you are carrying a bunny, you slow down a bit. 
+You can drop the bunny and pick your speed back up. 
+
+Obstacles//
+
+Time- 
+You were let out in the middle of the night, because you were causing a ruckus, and keeping your owner, Kate, from sleeping. 
+Lucky for you, its your favorite time of the year. Spring time... also known as wabbit season. You have until the sun rises, to get as many bunny corpses on the stoop before Kate wakes up. Get to it! You want her to be proud of your work don't you?
+
+Coyotes- 
+Beware. While you are known on the block for being the most ferocious feline, another beast lies in wait for you to let you guard down. A slower moving predator, hunts you with every move. 
+
+Cars- 
+These mystical metal murdermachines come with no warning. Cross the road at your own parol. 
+
+which rhymes with
+
+Caroll- 
+This lady is crazy. She has thrown wrenches at you. She has swiped you with her broom. She tried to poison you that one time! Stay clear of Caroll! 
+
+David- 
+Now this downstairs neighbor is confused. He seems to love you, and then hate you. Something about having a baby bunny, writhing in your teeth seems to set him off... 
+
+GameScreens//
+A homescreen with a play button. 
+Maybe some moving things behind you?
+
+The screen with the instructions/controls and Obstacle Page. Maybe it has and the last obstacle.... you click it goes to time ==> and then game starts. 
+
+Would love for game to start with a little ruckus and clanking by door. And you coming out. 
+Clock starts/Sun starts moving. Maybe it is a moon at first. Becomes a sun, and at daytime, kate comes out. 
+
+Game over Screen. 
+    -Oly gets a bowl of wet food!
+    -Loss Oly is Dead :( 
+
+    -Scoreboard. Store in Local Storage. 
+
+Main screen: 
+Grass with bunnies poppying up randomly. Max 3 on a screen at once. 
+Vertical Road. 
+Cars move fast. At random intervals. 
+Carol moves slow, doesnt cross if car. David moves slow doesnt cross if car. 
+Coyotes, faster than carol and david but slower than Oly. And follow OLy's movements. 
+
+
+Steps in Game Construction: 
+
+Game board
+    -create canvas
+    -Some sort of grassy thing. 
+    -House/Stoop
+    -Create my objects. 
+        -class Character{
+            constructor(img, speed, x, y){
+                move(){
+
+                } 
+            }
+        }
+        -class Oly extends Character{
+            constructor(img,speed,x,y){
+                bite();
+                grabBunny();
+                drop();
+                olyDead();
+                this.hasBunny = false
+            }
+        }
+        -class Bunny extends Character{
+            constructor(img,speed,x,y){
+                die();
+            }
+        }
+        
+        -class Coyote extends Character{
+            constructor(img,speed,x,y){
+                hunt();
+                roadKill();
+            }
+        }
+        -class David extends Character{
+            constructor(img, speed, x, y){
+                getAngry();
+            }
+        }
+
+        Caroll and Car don't need their own classes. Becuase the methods they will use are just normal Character Methods. 
+
+        Oly: 
+        x and y position will change with arrow keys. 
+        His movement will be fast. 
+        He will bite with space, hold on to bunny with space, and drop bunny upon release of space bar. 
+
+        Bunny: 
+        spawn randomly every # of interval
+        will move around slowly on x and y axis. 
+        Bunny can go under car, around carol and david. 
+        
+        Coyote:
+        Only be one at a time. 
+        It is faster than david and carol, but slower than oly. 
+        It hunts oly. So it follows his most recent x and y coordinates. 
+        The coyote will be killed, if it is hit by a car. 
+
+        David and Carol: 
+        Carol will kill Oly upon collision. 
+        David loves Oly, unless Oly has a bunny, in which case he will bonk him with a shovel. But they are slow movers. And don't cross the road. 
+
+        Car: 
+        spawns randomly. Can go both up to down. And down to up. 
+        Super fast. Will kill Oly and Coyote. 
+    -Create my Functions
+        day(){
+            A timeout interval. 
+            A moon moving across horizontal plane will represent length of game. 
+            When timeInterval is met. Everything stops, excpet for Oly. 
+            A message popps up saying Get to the stoop!!!
+            And the game end function is triggered when oly is on the stoop. 
+        }
+        gameStart(){
+            Starts game. 
+            day();
+            gameloop()
+        }
+        gameloop(){
+            creates starting objects. 
+            greates more objects as things die. 
+            countsScore();
+        }
+        move(){
+            allows characters to move in assigned ways. 
+        }
+        bite(){
+            allows oly to kill bunny. 
+        }
+        grab(){
+            allows oly to pick up bunny
+            bunny is appended to oly with apendChild? - not sure if that woudld work. 
+        }
+        drop(){
+            allows oly to drop bunny
+        }
+        olyDead(){
+            loseGame();
+        }
+        die(){
+            cute bunny to dead bunny
+        }
+        roadKill(){
+            coyote hit by car. Blood splatter would be fun. 
+        }
+        getAngry(){
+            david's image changes. 
+        }
+
+
+
+
+
+        
