@@ -137,7 +137,7 @@ window.addEventListener("DOMContentLoaded", function(){
 })
 
 function movementHandler(e){
-    console.log(`the movement was ${e.key}`)
+    //console.log(`the movement was ${e.key}`)
     console.log(`OlyBite is ${oly.bite}`)
     switch (e.key){
         case "ArrowUp": 
@@ -158,7 +158,7 @@ function movementHandler(e){
         case " ":
             oly.bite = true;
     }
-    console.log(oly)
+    //console.log(oly)
 }
 
 function movehandler2(e){
@@ -176,4 +176,24 @@ function gameLoop(){
     ctx.clearRect(0,0, game.width, game.height)
     oly.render();
     bunny1.render();
+    detectHit(oly,bunny1)
+    
+}
+
+function detectHit(p1,p2){
+    let hitTest =
+    p1.y + p1.height > p2.y &&
+    p1.y < p2.y + p2.height &&
+    p1.x + p1.width > p2.x &&
+    p1.x < p2.x + p2.width; // {boolean} : if all are true -> hit 
+
+    if(hitTest){
+        console.log("Hit")
+        if(oly.bite){
+            console.log("Hit and Bit")
+            bunny1.color = "red"
+        }
+    } else {
+
+    }
 }
