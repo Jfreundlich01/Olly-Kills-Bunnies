@@ -19,9 +19,17 @@ body {
     width: 100%;
 } */
 
+.score{
+    font-size: 72;
+    color: blue;
+}
+
 canvas{
     background-color: rgb(0,128,0, 1);
     width: 80vw;
     height: 90vh;
 
+}
+.images{
+    display: none;
 }

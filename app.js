@@ -2,6 +2,10 @@ const game = document.querySelector("#game");
 let ctx = game.getContext("2d");
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
+olyImg = document.querySelector('.oly')
+
+//console.log(olyImg)
+let stoop
 let oly;
 let bunny1
 let bunny2
@@ -9,7 +13,7 @@ let bunny3
 let coyote
 
 class Character {
-  constructor(x, y, color, width, height, speed) {
+  constructor(x, y,color,width, height, speed) {
     this.x = x;
     this.y = y;
     this.color = color;
@@ -18,10 +22,11 @@ class Character {
     this.speed = speed;
     this.alive = true;
     this.hunting = false;
+    // this.drawImage = ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
   }
 
-  //renders images onto canvas
-  //image, destination x, destination y, destination width, destination height
+//   renders images onto canvas
+//   image, destination x, destination y, destination width, destination height
 //   drawImage() {
 //       ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
 //   }
@@ -53,11 +58,16 @@ class Character {
 }
 
 class Oly extends Character {
-  constructor(x, y, color, width, height, speed) {
-    super(x, y, color, width, height, speed);
+  constructor(x, y,color, width, height, speed) {
+    super(x, y,color, width, height, speed);
     this.bite = false;
     this.hasBunny = false;
+    // this.drawImage = ctx.drawImage(olyImg, this.x, this.y, this.width, this.height)
   }
+  
+//   drawImage(img) {
+//     ctx.drawImage(img)
+//     }
 
   //Oly's move mechanics. Follows arrow keystrokes
     // sayHi(){
@@ -102,7 +112,7 @@ class Oly extends Character {
 class Bunny extends Character {
     constructor(x, y, img, width, height, speed) {
         super(x, y, img, width, height, speed);
-    this.held = false;
+    this.scored = false;
     }
     //Add score once dead bunny is dropped on stoop. 
     scoreCount(bunny){
@@ -133,15 +143,19 @@ window.addEventListener("DOMContentLoaded", function(){
         //floor.style.backgroundImage = "url('../img/betterGrass.png')"; // Oly was rendering under the floor. Tried to get it so he would redner after floor img loaded. Didn't work. Will revist later. 
         
         //create my game characters
-        oly = new Oly(900,620,'Grey',40,40,3);
+        oly = new Oly(900,620,"grey",40,40,3);
         bunny1 = new Bunny(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
         bunny2 = new Bunny(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
         bunny3 = new Bunny(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"white",20,20,.5)
         coyote = new Character(Math.floor(Math.random() * 900),Math.floor(Math.random() * 600),"brown", 55,55,.7)
+        stoop = new Character(920,620,"black", 40,80, 0)
+
+        console.log(bunny1.constructor.name)
         // floor.onload = function(){
             // }
             
             //Render my Game Characters
+            stoop.render();
             oly.render();
            bunny1.render();
            bunny2.render();
@@ -214,6 +228,7 @@ function gameLoop(){
     //clear baord every loop
     ctx.clearRect(0,0, game.width, game.height)
     //render my characters every loop
+    stoop.render();
     oly.render();
     bunny1.render();
     bunny2.render();
@@ -223,6 +238,9 @@ function gameLoop(){
     detectHit(oly,bunny2)
     detectHit(oly,bunny3)
     detectHit(oly,coyote)
+    detectHit(bunny1,stoop)
+    detectHit(bunny2,stoop)
+    detectHit(bunny3,stoop)
     coyoteHunt();
     
 }
@@ -237,7 +255,7 @@ function detectHit(p1,p2){
     if(hitTest){
         console.log("Hit",6)
         //check for bite
-        if(oly.bite){
+        if(oly.bite && p2.constructor.name === 'Bunny'){
             console.log("Hit and Bit",7)
             p2.color = "red"
             //attach bunnies to Oly
@@ -247,8 +265,20 @@ function detectHit(p1,p2){
             //stand in place for end game message
             console.log("The Coyote Got you!")
             oly.color = "red"
+        } else if (p1.constructor.name === 'Bunny' && p2 === stoop){
+            this.scored = true;
+            console.log(this.scored)
         }
     } else {
 
     }
 }
+
+function addScore(){
+
+}
+
+//random generate bunnies after scored
+// function replaceBunny{
+//     if()
+// }
