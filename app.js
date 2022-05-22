@@ -112,6 +112,7 @@ class Oly extends Character {
 class Bunny extends Character {
     constructor(x, y, img, width, height, speed) {
         super(x, y, img, width, height, speed);
+    this.pickedUp = false;
     this.scored = false;
     }
     //Add score once dead bunny is dropped on stoop. 
@@ -204,6 +205,10 @@ function moveHandler2(e){
     switch (e.key){
         case " " :
             oly.bite = false;
+            oly.hasBunny = false;
+            bunny1.pickedUp = false;
+            bunny2.pickedUp = false;
+            bunny3.pickedUp = false;
     }
 }
 
@@ -221,7 +226,6 @@ function coyoteHunt(){
         coyote.y -= 5 * coyote.speed
     } 
 }
-//listen to key up and down
 
 //Game Loop
 function gameLoop(){
@@ -255,10 +259,13 @@ function detectHit(p1,p2){
     if(hitTest){
         console.log("Hit",6)
         //check for bite
-        if(oly.bite && p2.constructor.name === 'Bunny'){
+        if(oly.bite && p2.constructor.name === 'Bunny' && oly.hasBunny === false){
             console.log("Hit and Bit",7)
             p2.color = "red"
+            oly.hasBunny = true;
+            p2.pickedUp = true;
             //attach bunnies to Oly
+        }else if (p2.pickedUp === true){
             p2.x = oly.x
             p2.y = oly.y
         } else if (p2 === coyote){
