@@ -21,7 +21,8 @@ let dash4;
 let dash5;
 let car1;
 let car2;
-console.log(score);
+let sharoll;
+let mathew;
 
 class Character {
   constructor(x, y, color, width, height, speed) {
@@ -192,6 +193,9 @@ window.addEventListener("DOMContentLoaded", function () {
     dash5 = new Character(345,640, "yellow",10, 80 )
     car1 = new Character(300,-100, "blue", 45,60, 6)
     car2 = new Character(355,750, "blue", 45,60, 6)
+    sharoll = new Character(Math.floor(Math.random()* 200),Math.floor(Math.random() * 600), "orange" ,55,55, .5)
+    mathew = new Character(410 + Math.floor(Math.random()* 450),Math.floor(Math.random() * 600), "purple" ,55,55, .5)
+    
     
 
     console.log(bunny1.constructor.name);
@@ -206,6 +210,8 @@ window.addEventListener("DOMContentLoaded", function () {
     dash3.render();
     dash4.render();
     dash5.render();
+    sharoll.render();
+    mathew.render();
     oly.render();
     bunny1.render();
     bunny2.render();
@@ -277,6 +283,89 @@ function coyoteHunt() {
   }
 }
 
+//Mathew Hunt you
+function mathewHunt(m,dist){
+    if(
+        oly.hasBunny && 
+        m.x - oly.x <= dist &&
+        m.x - oly.x >= 0 &&
+        m.y - oly.y <= dist &&
+        m.y - oly.y >= 0
+    ) {
+    m.x -= 5 * m.speed;
+    m.y -= 5 * m.speed;
+    m.color = "red"
+    } else if (
+        oly.hasBunny && 
+        oly.x - m.x <= dist &&
+        oly.x - m.x >= 0 &&
+        oly.y - m.y <= dist &&
+        oly.y - m.y >= 0
+    ) {
+        m.x += 5 * m.speed;
+        m.y += 5 * m.speed;
+        m.color = "red"
+    } else if (
+        oly.hasBunny && 
+        m.x - oly.x <= dist &&
+        m.x - oly.x >= 0 &&
+        oly.y - m.y <= dist &&
+        oly.y - m.y >= 0
+      ) {
+        m.x -= 5 * m.speed;
+        m.y += 5 * m.speed;
+        m.color = "red"
+      } else if (
+        oly.hasBunny && 
+        oly.x - m.x <= dist &&
+        oly.x - m.x >= 0 &&
+        m.y - oly.y <= dist &&
+        m.y - oly.y >= 0
+      ) {
+        m.x += 5 * m.speed;
+        m.y -= 5 * m.speed;
+        m.color = "red"
+      } else {
+        m.color = "purple"
+      }
+}
+
+function sharollHunt(m,dist){
+    if(
+        m.x - oly.x <= dist &&
+        m.x - oly.x >= 0 &&
+        m.y - oly.y <= dist &&
+        m.y - oly.y >= 0
+    ) {
+    m.x -= 5 * m.speed;
+    m.y -= 5 * m.speed;
+    } else if (
+        oly.x - m.x <= dist &&
+        oly.x - m.x >= 0 &&
+        oly.y - m.y <= dist &&
+        oly.y - m.y >= 0
+    ) {
+        m.x += 5 * m.speed;
+        m.y += 5 * m.speed;
+    } else if (
+        m.x - oly.x <= dist &&
+        m.x - oly.x >= 0 &&
+        oly.y - m.y <= dist &&
+        oly.y - m.y >= 0
+      ) {
+        m.x -= 5 * m.speed;
+        m.y += 5 * m.speed;
+      } else if (
+        oly.x - m.x <= dist &&
+        oly.x - m.x >= 0 &&
+        m.y - oly.y <= dist &&
+        m.y - oly.y >= 0
+      ) {
+        m.x += 5 * m.speed;
+        m.y -= 5 * m.speed;
+      }
+}
+
 //Bunny Move!
 function bunnyMove(b) {
   if (b.alive) {
@@ -316,6 +405,46 @@ function bunnyMove(b) {
   }
 }
 
+//Bunny Move!
+function bunnyMove(b) {
+  if (b.alive) {
+    if (
+      b.x - oly.x <= 200 &&
+      b.x - oly.x >= 0 &&
+      b.y - oly.y <= 200 &&
+      b.y - oly.y >= 0
+    ) {
+      b.x += 5 * b.speed;
+      b.y += 5 * b.speed;
+    } else if (
+      oly.x - b.x <= 200 &&
+      oly.x - b.x >= 0 &&
+      oly.y - b.y <= 200 &&
+      oly.y - b.y >= 0
+    ) {
+      b.x - 5 * b.speed;
+      b.y -= 5 * b.speed;
+    } else if (
+      b.x - oly.x <= 200 &&
+      b.x - oly.x >= 0 &&
+      oly.y - b.y <= 200 &&
+      oly.y - b.y >= 0
+    ) {
+      b.x += 5 * b.speed;
+      b.y -= 5 * b.speed;
+    } else if (
+      oly.x - b.x <= 200 &&
+      oly.x - b.x >= 0 &&
+      b.y - oly.y <= 200 &&
+      b.y - oly.y >= 0
+    ) {
+      b.x -= 5 * b.speed;
+      b.y += 5 * b.speed;
+    }
+  }
+}
+
+
 //Game Loop
 function gameLoop() {
   //clear baord every loop
@@ -329,6 +458,8 @@ function gameLoop() {
   dash4.render();
   dash5.render();
   oly.render();
+  sharoll.render();
+  mathew.render();
   bunny1.render();
   bunny2.render();
   bunny3.render();
@@ -348,10 +479,14 @@ function gameLoop() {
 //   detectHit(car1,oly)
 //   detectHit(car2,oly)
   coyoteHunt();
+  mathewHunt(mathew,300)
+  sharollHunt(sharoll,200)
   detectHit(car1,coyote)
   detectHit(car2,coyote)
   detectCarHit(car1, oly)
   detectCarHit(car2, oly)
+  detectHit(mathew,oly)
+  detectHit(sharoll,oly)
   bunnyMove(bunny1);
   bunnyMove(bunny2);
   bunnyMove(bunny3);
@@ -421,7 +556,10 @@ function detectHit(p1, p2) {
 
         } else if (p1 === coyote && p2 === road ) {
             coyote.speed = 3
-        } 
+        } else if(p1 === mathew || p1 === sharoll && p2 === oly ){
+            oly.color = "red";
+            //console.log(`${p1.constructor.name} got oly!`)
+        }
     }
     else {
             coyote.speed = .7
