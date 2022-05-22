@@ -13,6 +13,14 @@ let bunny2;
 let bunny3;
 let coyote;
 let score = 0;
+let road;
+let dash1;
+let dash2;
+let dash3;
+let dash4;
+let dash5;
+let car1;
+let car2;
 console.log(score);
 
 class Character {
@@ -63,6 +71,7 @@ class Oly extends Character {
   constructor(x, y, color, width, height, speed) {
     super(x, y, color, width, height, speed);
     this.bite = false;
+    this.onStoop = false;
     this.hasBunny = false;
     // this.drawImage = ctx.drawImage(olyImg, this.x, this.y, this.width, this.height)
   }
@@ -175,6 +184,15 @@ window.addEventListener("DOMContentLoaded", function () {
       0.7
     );
     stoop = new Character(920, 620, "black", 40, 80, 0);
+    road = new Character(300,0, "black", 100,800)
+    dash1 = new Character(345,0, "yellow",10, 80 )
+    dash2 = new Character(345,160, "yellow",10, 80 )
+    dash3 = new Character(345,320, "yellow",10, 80 )
+    dash4 = new Character(345,480, "yellow",10, 80 )
+    dash5 = new Character(345,640, "yellow",10, 80 )
+    car1 = new Character(300,-100, "blue", 45,60, 6)
+    car2 = new Character(355,750, "blue", 45,60, 6)
+    
 
     console.log(bunny1.constructor.name);
     // floor.onload = function(){
@@ -182,11 +200,19 @@ window.addEventListener("DOMContentLoaded", function () {
 
     //Render my Game Characters
     stoop.render();
+    road.render();
+    dash1.render();
+    dash2.render();
+    dash3.render();
+    dash4.render();
+    dash5.render();
     oly.render();
     bunny1.render();
     bunny2.render();
     bunny3.render();
     coyote.render();
+    car1.render();
+    car2.render();
     //console.log(oly, 1);
     //console.log(bunny1, 2);
     //run the game
@@ -232,6 +258,7 @@ function moveHandler2(e) {
       bunny1.pickedUp = false;
       bunny2.pickedUp = false;
       bunny3.pickedUp = false;
+      oly.speed = 3;
   }
 }
 
@@ -295,11 +322,20 @@ function gameLoop() {
   ctx.clearRect(0, 0, game.width, game.height);
   //render my characters every loop
   stoop.render();
+  road.render();
+  dash1.render();
+  dash2.render();
+  dash3.render();
+  dash4.render();
+  dash5.render();
   oly.render();
   bunny1.render();
   bunny2.render();
   bunny3.render();
   coyote.render();
+  car1.render();
+  randomCar();
+  car2.render();
   detectHit(oly, bunny1);
   detectHit(oly, bunny2);
   detectHit(oly, bunny3);
@@ -307,15 +343,26 @@ function gameLoop() {
   detectHit(bunny1, stoop);
   detectHit(bunny2, stoop);
   detectHit(bunny3, stoop);
+  detectHit(oly,stoop);
+  detectHit(coyote,road)
+//   detectHit(car1,oly)
+//   detectHit(car2,oly)
   coyoteHunt();
+  detectHit(car1,coyote)
+  detectHit(car2,coyote)
+  detectCarHit(car1, oly)
+  detectCarHit(car2, oly)
   bunnyMove(bunny1);
   bunnyMove(bunny2);
   bunnyMove(bunny3);
   addScore(bunny1);
   addScore(bunny2);
   addScore(bunny3);
+  console.log(coyote.speed)
+  //console.log(oly.speed)
   //   console.log(`bunny1x: ${bunny1.x} bunny1y: ${bunny1.y}`);
   //   console.log(`Olyx: ${oly.x} olyy: ${oly.y}`);
+  //console.log(car2.y)
 }
 //detect hit function
 function detectHit(p1, p2) {
@@ -325,40 +372,104 @@ function detectHit(p1, p2) {
     p1.x + p1.width > p2.x &&
     p1.x < p2.x + p2.width; // {boolean} : if all are true -> hit
 
-  if (hitTest) {
-    //console.log("Hit", 6);
-    //check for bite
-    if (oly.bite && p2.constructor.name === "Bunny" && oly.hasBunny === false) {
-      console.log("Hit and Bit", 7);
-      p2.color = "red";
-      p2.alive = false;
-      oly.hasBunny = true;
-      p2.pickedUp = true;
-      //attach bunnies to Oly
-    } else if (p2.pickedUp === true) {
-      p2.x = oly.x;
-      p2.y = oly.y;
-    } else if (p2 === coyote) {
-      //stand in place for end game message
-      console.log("The Coyote Got you!");
-      oly.color = "red";
-    } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
-      p1.onStoop = true;
-      //console.log(this.onStoop)
-    }
-  } else {
-  }
-}
+    if (hitTest) {
+        //console.log("Hit", 6);
+        //check for bite
+        if (oly.bite && p2.constructor.name === "Bunny" && oly.hasBunny === false) {
+          console.log("Hit and Bit", 7);
+          p2.color = "red";
+          p2.alive = false;
+          oly.hasBunny = true;
+          p2.pickedUp = true;
+          //attach bunnies to Oly
+        } else if (p2.pickedUp === true) {
+          p2.x = oly.x;
+          p2.y = oly.y;
+          oly.speed = 2;
+        } else if (p1 === oly && p2 === coyote) {
+          //stand in place for end game message
+          console.log("The Coyote Got you!");
+          oly.color = "red";
+        } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
+          p1.onStoop = true;
+          //console.log(this.onStoop)
+        // } else if (p1 === car1 || p1 === car2 && p2 === oly){
+        //     oly.color = "red"
+        //     console.log(`Oly Got hit by a car :()`)
+        } else if(p1 === car1 || p1 === car2 && p2 === coyote){
+            console.log(`coyote was hit`)
+            if(Math.random() < .5){
+                spawny = -1;
+            } else { 
+                spawny = 1;
+            }
+            if(spawny === -1){
+                coyote.y = -50 - Math.floor(Math.random() * -600)
+            } else {
+                coyote.y = 800 + Math.floor(Math.random() * +600)
+            }
+            if(Math.random() < .5){
+                spawnx = -1;
+            } else { 
+                spawnx = 1;
+            }
+            if(spawnx === -1){
+                coyote.x = -50 - Math.floor(Math.random() * -600)
+            } else {
+                coyote.x = 950 + Math.floor(Math.random() * +600)
+            }
 
-function addScore(b) {
-  if (b.onStoop === true) {
-    console.log(`Add Score Ran`);
-    score += 1;
-    scoreEl.innerText = score;
-    b.onStoop = false;
-    b.color = "white";
-    b.x = Math.floor(Math.random() * 900);
-    b.y = Math.floor(Math.random() * 600);
-    console.log(score);
-  }
-}
+        } else if (p1 === coyote && p2 === road ) {
+            coyote.speed = 3
+        } 
+    }
+    else {
+            coyote.speed = .7
+        }
+    //console.log(oly.speed)
+    }
+
+    function detectCarHit(p1, p2) {
+        let carHit =
+          p1.y + p1.height > p2.y &&
+          p1.y < p2.y + p2.height &&
+          p1.x + p1.width > p2.x &&
+          p1.x < p2.x + p2.width; // {boolean} : if all are true -> hit
+      
+          if (carHit) {
+              if(p1 === car1 || p1 === car2 && p2 === oly){
+                    oly.color = "red"
+                    console.log(`Oly Got hit by a car :()`)
+              }
+          }
+    }
+
+
+
+    function addScore(b) {
+      if (b.onStoop === true) {
+        console.log(`Add Score Ran`);
+        score += 1;
+        scoreEl.innerText = score;
+        b.onStoop = false;
+        b.color = "white";
+        b.x = Math.floor(Math.random() * 900);
+        b.y = Math.floor(Math.random() * 600);
+        console.log(score);
+      }
+    }
+
+    //function randomCar
+    function randomCar(){
+        if(car1.y < 800){
+            car1.y += 5 * car1.speed;
+        } else {
+            car1.y = -70 - (Math.floor(Math.random() * 2000))
+        }
+
+        if(car2.y > -70){
+            car2.y -= 5 * car1.speed
+        } else {
+            car2.y = 750 + (Math.floor(Math.random() * 2000))
+        }
+    }
