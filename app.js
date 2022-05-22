@@ -2,6 +2,7 @@ const game = document.querySelector("#game");
 let ctx = game.getContext("2d");
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
+const scoreEl = document.querySelector(".score")
 olyImg = document.querySelector(".oly");
 
 //console.log(olyImg)
@@ -11,6 +12,8 @@ let bunny1;
 let bunny2;
 let bunny3;
 let coyote;
+let score = 0;
+console.log(score);
 
 class Character {
   constructor(x, y, color, width, height, speed) {
@@ -111,14 +114,10 @@ class Bunny extends Character {
   constructor(x, y, img, width, height, speed) {
     super(x, y, img, width, height, speed);
     this.pickedUp = false;
+    this.onStoop = false;
     this.scored = false;
   }
   //Add score once dead bunny is dropped on stoop.
-  scoreCount(bunny) {
-    if (!bunny.alive && x === 73 && y === 76) {
-      addScore();
-    }
-  }
 }
 
 // class David extends Character {
@@ -312,8 +311,11 @@ function gameLoop() {
   bunnyMove(bunny1);
   bunnyMove(bunny2);
   bunnyMove(bunny3);
-//   console.log(`bunny1x: ${bunny1.x} bunny1y: ${bunny1.y}`);
-//   console.log(`Olyx: ${oly.x} olyy: ${oly.y}`);
+  addScore(bunny1);
+  addScore(bunny2);
+  addScore(bunny3);
+  //   console.log(`bunny1x: ${bunny1.x} bunny1y: ${bunny1.y}`);
+  //   console.log(`Olyx: ${oly.x} olyy: ${oly.y}`);
 }
 //detect hit function
 function detectHit(p1, p2) {
@@ -324,7 +326,7 @@ function detectHit(p1, p2) {
     p1.x < p2.x + p2.width; // {boolean} : if all are true -> hit
 
   if (hitTest) {
-    console.log("Hit", 6);
+    //console.log("Hit", 6);
     //check for bite
     if (oly.bite && p2.constructor.name === "Bunny" && oly.hasBunny === false) {
       console.log("Hit and Bit", 7);
@@ -341,16 +343,22 @@ function detectHit(p1, p2) {
       console.log("The Coyote Got you!");
       oly.color = "red";
     } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
-      this.scored = true;
-      console.log(this.scored);
+      p1.onStoop = true;
+      //console.log(this.onStoop)
     }
   } else {
   }
 }
 
-function addScore() {}
-
-//random generate bunnies after scored
-// function replaceBunny{
-//     if()
-// }
+function addScore(b) {
+  if (b.onStoop === true) {
+    console.log(`Add Score Ran`);
+    score += 1;
+    scoreEl.innerText = score;
+    b.onStoop = false;
+    b.color = "white";
+    b.x = Math.floor(Math.random() * 900);
+    b.y = Math.floor(Math.random() * 600);
+    console.log(score);
+  }
+}
