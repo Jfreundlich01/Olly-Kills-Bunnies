@@ -15,8 +15,10 @@ let canvasHeight = intFrameHeight * 0.9;
 // console.log(canvasHeight);
 
 //images
-const olyImage = new Image();
-olyImage.src = 'img/Oly.png'
+const olyImageLeft = new Image();
+olyImageLeft.src = 'img/Olyleft.png'
+const olyImageRight = new Image();
+olyImageRight.src = 'img/Olyright.png'
 const aliveBunnyImage = new Image();
 aliveBunnyImage.src = 'img/aliveBunny.png'
 const deadBunnyImage = new Image();
@@ -30,7 +32,9 @@ angryMathewImage.src = 'img/angryMathew.png'
 const sharollImage = new Image();
 sharollImage.src = 'img/angryCaroll.png'
 const carImage = new Image();
-carImage.src = 'img/car.png'
+carImage.src = 'img/car1.png'
+const carImage2 = new Image();
+carImage2.src = 'img/car2.png'
 const moonImage = new Image()
 moonImage.src= 'img/moon.png'
 let moonX = 0;
@@ -195,7 +199,7 @@ window.addEventListener("DOMContentLoaded", function () {
       canvasWidth * 0.055,
       canvasWidth * 0.055,
       3,
-      olyImage
+      olyImageLeft
     );
     bunny1 = new Bunny(
       Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052)),
@@ -299,7 +303,7 @@ window.addEventListener("DOMContentLoaded", function () {
       canvasWidth * 0.0473,
       canvasHeight * 0.0812,
       6,
-      carImage
+      carImage2
     )
     sharoll = new Character(
       Math.floor(Math.random() * (canvasWidth * 0.2418)),
@@ -372,10 +376,12 @@ function movementHandler(e) {
 
     case "ArrowLeft":
       oly.x -= canvasHeight * canvasWidth * 0.000007114 * oly.speed;
+      oly.image = olyImageLeft;
       break;
 
     case "ArrowRight":
       oly.x += canvasHeight * canvasWidth * 0.000007114 * oly.speed;
+      oly.image = olyImageRight;
       break;
     case " ":
       oly.bite = true;
