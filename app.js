@@ -1,9 +1,20 @@
 const game = document.querySelector("#game");
 let ctx = game.getContext("2d");
+ctx.scale(100,100)
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 const scoreEl = document.querySelector(".score")
-olyImg = document.querySelector(".oly");
+//olyImg = document.querySelector(".oly");
+let intFrameWidth = window.innerWidth;
+let intFrameHeight = window.innerHeight
+// console.log(intFrameWidth)
+// console.log(intFrameHeight)
+
+let canvasWidth = intFrameWidth * .8
+let canvasHeight = intFrameHeight * .9
+
+console.log(canvasWidth)
+console.log(canvasHeight)
 
 //console.log(olyImg)
 let stoop;
@@ -151,50 +162,50 @@ window.addEventListener("DOMContentLoaded", function () {
     //floor.style.backgroundImage = "url('../img/betterGrass.png')"; // Oly was rendering under the floor. Tried to get it so he would redner after floor img loaded. Didn't work. Will revist later.
 
     //create my game characters
-    oly = new Oly(900, 620, "grey", 40, 40, 3);
+    oly = new Oly(canvasWidth - (canvasWidth *.05), canvasHeight - (canvasHeight * .16), "grey", canvasWidth*.042, canvasWidth*.042, 3);
     bunny1 = new Bunny(
-      Math.floor(Math.random() * 900),
-      Math.floor(Math.random() * 600),
+      Math.floor(Math.random() * (canvasWidth-(canvasWidth * .052))),
+      Math.floor(Math.random() * (canvasHeight-(canvasHeight * .186))),
       "white",
-      20,
-      20,
+      canvasWidth * .021,
+      canvasWidth * .021,
       0.3
     );
     bunny2 = new Bunny(
-      Math.floor(Math.random() * 900),
-      Math.floor(Math.random() * 600),
-      "white",
-      20,
-      20,
-      0.3
+        Math.floor(Math.random() * (canvasWidth-(canvasWidth * .052))),
+        Math.floor(Math.random() * (canvasHeight-(canvasHeight * .186))),
+        "white",
+        canvasWidth * .021,
+        canvasWidth * .021,
+        0.3
     );
     bunny3 = new Bunny(
-      Math.floor(Math.random() * 900),
-      Math.floor(Math.random() * 600),
-      "white",
-      20,
-      20,
-      0.3
+        Math.floor(Math.random() * (canvasWidth-(canvasWidth * .052))),
+        Math.floor(Math.random() * (canvasHeight-(canvasHeight * .186))),
+        "white",
+        canvasWidth * .021,
+        canvasWidth * .021,
+        0.3
     );
     coyote = new Character(
-      Math.floor(Math.random() * 900),
-      Math.floor(Math.random() * 600),
-      "brown",
-      55,
-      55,
-      0.7
+        Math.floor(Math.random() * (canvasWidth-(canvasWidth * .052))),
+        Math.floor(Math.random() * (canvasHeight-(canvasHeight * .186))),
+        "brown",
+        canvasWidth * .0578,
+        canvasWidth * .0578,
+        0.7
     );
-    stoop = new Character(920, 620, "black", 40, 80, 0);
-    road = new Character(300,0, "black", 100,800)
-    dash1 = new Character(345,0, "yellow",10, 80 )
-    dash2 = new Character(345,160, "yellow",10, 80 )
-    dash3 = new Character(345,320, "yellow",10, 80 )
-    dash4 = new Character(345,480, "yellow",10, 80 )
-    dash5 = new Character(345,640, "yellow",10, 80 )
-    car1 = new Character(300,-100, "blue", 45,60, 6)
-    car2 = new Character(355,750, "blue", 45,60, 6)
-    sharoll = new Character(Math.floor(Math.random()* 200),Math.floor(Math.random() * 600), "orange" ,55,55, .5)
-    mathew = new Character(410 + Math.floor(Math.random()* 450),Math.floor(Math.random() * 600), "purple" ,55,55, .5)
+    stoop = new Character(canvasWidth * .9674, canvasHeight * .83897, "black", canvasWidth * .042, canvasHeight * .10827, 0);
+    road = new Character(canvasWidth * .3153, 0, "black", canvasWidth * .1051, canvasHeight)
+    dash1 = new Character(canvasWidth * .3627,0, "yellow",canvasWidth * .0105, canvasHeight * .10826 )
+    dash2 = new Character(canvasWidth * .3627,canvasHeight * .2165, "yellow",canvasWidth * .0105, canvasHeight * .10826)
+    dash3 = new Character(canvasWidth * .3627,canvasHeight * .4330, "yellow",canvasWidth * .0105, canvasHeight * .10826)
+    dash4 = new Character(canvasWidth * .3627,canvasHeight * .6496, "yellow",canvasWidth * .0105, canvasHeight * .10826)
+    dash5 = new Character(canvasWidth * .3627,canvasHeight * .8661, "yellow",canvasWidth * .0105, canvasHeight * .10826)
+    car1 = new Character(canvasWidth * .3134,0 - (canvasHeight * .13534), "blue", canvasWidth * .0473,canvasHeight * .0812, 6)
+    car2 = new Character(canvasWidth * .3733,canvasHeight, "blue", canvasWidth * .0473,canvasHeight * .0812, 6)
+    sharoll = new Character(Math.floor(Math.random()* (canvasWidth * .2418)),Math.floor(Math.random() * (canvasHeight * .813)), "orange" ,canvasWidth * .0578,canvasWidth * .0578, .5)
+    mathew = new Character((canvasWidth * .4311) + Math.floor(Math.random()* (canvasWidth * .4732)),Math.floor(Math.random() * (canvasHeight * .813)), "purple" ,canvasWidth * .0578,canvasWidth * .0578, .5)
     
     
 
@@ -234,19 +245,19 @@ function movementHandler(e) {
   //console.log(`OlyBite is ${oly.bite}`, 4);
   switch (e.key) {
     case "ArrowUp":
-      oly.y >= 0 ? (oly.y -= 5 * oly.speed) : null;
+      oly.y >= 0 ? oly.y -= ((canvasHeight * canvasWidth) * .000007114) * oly.speed : null;
       break;
 
     case "ArrowDown":
-      oly.y += 5 * oly.speed;
+      oly.y += ((canvasHeight * canvasWidth) * .000007114) * oly.speed;
       break;
 
     case "ArrowLeft":
-      oly.x -= 5 * oly.speed;
+      oly.x -= ((canvasHeight * canvasWidth) * .000007114) * oly.speed;
       break;
 
     case "ArrowRight":
-      oly.x += 5 * oly.speed;
+      oly.x += ((canvasHeight * canvasWidth) * .000007114) * oly.speed;
       break;
     case " ":
       oly.bite = true;
@@ -271,15 +282,15 @@ function moveHandler2(e) {
 //coyote will hunt you!
 function coyoteHunt() {
   if (coyote.x < oly.x) {
-    coyote.x += 5 * coyote.speed;
+    coyote.x += ((canvasHeight * canvasWidth) * .000007114) * coyote.speed;
   } else {
-    coyote.x -= 5 * coyote.speed;
+    coyote.x -= ((canvasHeight * canvasWidth) * .000007114) * coyote.speed;
   }
 
   if (coyote.y < oly.y) {
-    coyote.y += 5 * coyote.speed;
+    coyote.y += ((canvasHeight * canvasWidth) * .000007114) * coyote.speed;
   } else {
-    coyote.y -= 5 * coyote.speed;
+    coyote.y -= ((canvasHeight * canvasWidth) * .000007114) * coyote.speed;
   }
 }
 
@@ -287,43 +298,43 @@ function coyoteHunt() {
 function mathewHunt(m,dist){
     if(
         oly.hasBunny && 
-        m.x - oly.x <= dist &&
+        m.x - oly.x <= (dist * canvasWidth) &&
         m.x - oly.x >= 0 &&
-        m.y - oly.y <= dist &&
+        m.y - oly.y <= (dist * canvasHeight) &&
         m.y - oly.y >= 0
     ) {
-    m.x -= 5 * m.speed;
-    m.y -= 5 * m.speed;
+    m.x -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+    m.y -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
     m.color = "red"
     } else if (
         oly.hasBunny && 
-        oly.x - m.x <= dist &&
+        oly.x - m.x <= (dist * canvasWidth) &&
         oly.x - m.x >= 0 &&
-        oly.y - m.y <= dist &&
+        oly.y - m.y <= (dist * canvasHeight) &&
         oly.y - m.y >= 0
     ) {
-        m.x += 5 * m.speed;
-        m.y += 5 * m.speed;
+        m.x += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
         m.color = "red"
     } else if (
         oly.hasBunny && 
-        m.x - oly.x <= dist &&
+        m.x - oly.x <= (dist * canvasWidth) &&
         m.x - oly.x >= 0 &&
-        oly.y - m.y <= dist &&
+        oly.y - m.y <= (dist * canvasHeight) &&
         oly.y - m.y >= 0
       ) {
-        m.x -= 5 * m.speed;
-        m.y += 5 * m.speed;
+        m.x -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
         m.color = "red"
       } else if (
         oly.hasBunny && 
-        oly.x - m.x <= dist &&
+        oly.x - m.x <= (dist * canvasWidth) &&
         oly.x - m.x >= 0 &&
-        m.y - oly.y <= dist &&
+        m.y - oly.y <= (dist * canvasHeight) &&
         m.y - oly.y >= 0
       ) {
-        m.x += 5 * m.speed;
-        m.y -= 5 * m.speed;
+        m.x += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
         m.color = "red"
       } else {
         m.color = "purple"
@@ -332,114 +343,114 @@ function mathewHunt(m,dist){
 
 function sharollHunt(m,dist){
     if(
-        m.x - oly.x <= dist &&
+        m.x - oly.x <= (dist * canvasWidth) &&
         m.x - oly.x >= 0 &&
-        m.y - oly.y <= dist &&
+        m.y - oly.y <= (dist * canvasHeight) &&
         m.y - oly.y >= 0
     ) {
-    m.x -= 5 * m.speed;
-    m.y -= 5 * m.speed;
+    m.x -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+    m.y -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
     } else if (
-        oly.x - m.x <= dist &&
+        oly.x - m.x <= (dist * canvasWidth) &&
         oly.x - m.x >= 0 &&
-        oly.y - m.y <= dist &&
+        oly.y - m.y <= (dist * canvasHeight) &&
         oly.y - m.y >= 0
     ) {
-        m.x += 5 * m.speed;
-        m.y += 5 * m.speed;
+        m.x += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
     } else if (
-        m.x - oly.x <= dist &&
+        m.x - oly.x <= (dist * canvasWidth)&&
         m.x - oly.x >= 0 &&
-        oly.y - m.y <= dist &&
+        oly.y - m.y <= (dist * canvasHeight) &&
         oly.y - m.y >= 0
       ) {
-        m.x -= 5 * m.speed;
-        m.y += 5 * m.speed;
+        m.x -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
       } else if (
-        oly.x - m.x <= dist &&
+        oly.x - m.x <= (dist * canvasWidth) &&
         oly.x - m.x >= 0 &&
-        m.y - oly.y <= dist &&
+        m.y - oly.y <= (dist * canvasHeight) &&
         m.y - oly.y >= 0
       ) {
-        m.x += 5 * m.speed;
-        m.y -= 5 * m.speed;
+        m.x += ((canvasHeight * canvasWidth) * .000007114) * m.speed;
+        m.y -= ((canvasHeight * canvasWidth) * .000007114) * m.speed;
       }
 }
 
-//Bunny Move!
-function bunnyMove(b) {
-  if (b.alive) {
-    if (
-      b.x - oly.x <= 200 &&
-      b.x - oly.x >= 0 &&
-      b.y - oly.y <= 200 &&
-      b.y - oly.y >= 0
-    ) {
-      b.x += 5 * b.speed;
-      b.y += 5 * b.speed;
-    } else if (
-      oly.x - b.x <= 200 &&
-      oly.x - b.x >= 0 &&
-      oly.y - b.y <= 200 &&
-      oly.y - b.y >= 0
-    ) {
-      b.x - 5 * b.speed;
-      b.y -= 5 * b.speed;
-    } else if (
-      b.x - oly.x <= 200 &&
-      b.x - oly.x >= 0 &&
-      oly.y - b.y <= 200 &&
-      oly.y - b.y >= 0
-    ) {
-      b.x += 5 * b.speed;
-      b.y -= 5 * b.speed;
-    } else if (
-      oly.x - b.x <= 200 &&
-      oly.x - b.x >= 0 &&
-      b.y - oly.y <= 200 &&
-      b.y - oly.y >= 0
-    ) {
-      b.x -= 5 * b.speed;
-      b.y += 5 * b.speed;
-    }
-  }
-}
+// //Bunny Move!
+// function bunnyMove(b) {
+//   if (b.alive) {
+//     if (
+//       b.x - oly.x <= 200 &&
+//       b.x - oly.x >= 0 &&
+//       b.y - oly.y <= 200 &&
+//       b.y - oly.y >= 0
+//     ) {
+//       b.x += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//       b.y += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//     } else if (
+//       oly.x - b.x <= 200 &&
+//       oly.x - b.x >= 0 &&
+//       oly.y - b.y <= 200 &&
+//       oly.y - b.y >= 0
+//     ) {
+//       b.x - ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//       b.y -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//     } else if (
+//       b.x - oly.x <= 200 &&
+//       b.x - oly.x >= 0 &&
+//       oly.y - b.y <= 200 &&
+//       oly.y - b.y >= 0
+//     ) {
+//       b.x += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//       b.y -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//     } else if (
+//       oly.x - b.x <= 200 &&
+//       oly.x - b.x >= 0 &&
+//       b.y - oly.y <= 200 &&
+//       b.y - oly.y >= 0
+//     ) {
+//       b.x -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//       b.y += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+//     }
+//   }
+// }
 
 //Bunny Move!
 function bunnyMove(b) {
   if (b.alive) {
     if (
-      b.x - oly.x <= 200 &&
+      b.x - oly.x <= (canvasWidth * .21) &&
       b.x - oly.x >= 0 &&
-      b.y - oly.y <= 200 &&
+      b.y - oly.y <= (canvasHeight * .21) &&
       b.y - oly.y >= 0
     ) {
-      b.x += 5 * b.speed;
-      b.y += 5 * b.speed;
+      b.x += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+      b.y += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
     } else if (
-      oly.x - b.x <= 200 &&
+      oly.x - b.x <= (canvasWidth * .21) &&
       oly.x - b.x >= 0 &&
-      oly.y - b.y <= 200 &&
+      oly.y - b.y <= (canvasHeight * .21) &&
       oly.y - b.y >= 0
     ) {
-      b.x - 5 * b.speed;
-      b.y -= 5 * b.speed;
+      b.x - ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+      b.y -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
     } else if (
-      b.x - oly.x <= 200 &&
+      b.x - oly.x <= (canvasWidth * .21) &&
       b.x - oly.x >= 0 &&
-      oly.y - b.y <= 200 &&
+      oly.y - b.y <= (canvasHeight * .21) &&
       oly.y - b.y >= 0
     ) {
-      b.x += 5 * b.speed;
-      b.y -= 5 * b.speed;
+      b.x += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+      b.y -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
     } else if (
-      oly.x - b.x <= 200 &&
+      oly.x - b.x <= (canvasWidth * .21) &&
       oly.x - b.x >= 0 &&
-      b.y - oly.y <= 200 &&
+      b.y - oly.y <= (canvasHeight * .21) &&
       b.y - oly.y >= 0
     ) {
-      b.x -= 5 * b.speed;
-      b.y += 5 * b.speed;
+      b.x -= ((canvasHeight * canvasWidth) * .000007114) * b.speed;
+      b.y += ((canvasHeight * canvasWidth) * .000007114) * b.speed;
     }
   }
 }
@@ -479,8 +490,8 @@ function gameLoop() {
 //   detectHit(car1,oly)
 //   detectHit(car2,oly)
   coyoteHunt();
-  mathewHunt(mathew,300)
-  sharollHunt(sharoll,200)
+  mathewHunt(mathew,.315)
+  sharollHunt(sharoll,.21)
   detectHit(car1,coyote)
   detectHit(car2,coyote)
   detectCarHit(car1, oly)
@@ -493,7 +504,7 @@ function gameLoop() {
   addScore(bunny1);
   addScore(bunny2);
   addScore(bunny3);
-  console.log(coyote.speed)
+  //console.log(coyote.speed)
   //console.log(oly.speed)
   //   console.log(`bunny1x: ${bunny1.x} bunny1y: ${bunny1.y}`);
   //   console.log(`Olyx: ${oly.x} olyy: ${oly.y}`);
@@ -539,9 +550,9 @@ function detectHit(p1, p2) {
                 spawny = 1;
             }
             if(spawny === -1){
-                coyote.y = -50 - Math.floor(Math.random() * -600)
+                coyote.y = 0 - Math.floor(Math.random() * (canvasHeight * .8120))
             } else {
-                coyote.y = 800 + Math.floor(Math.random() * +600)
+                coyote.y = canvasHeight + Math.floor(Math.random() * (canvasHeight * .8120))
             }
             if(Math.random() < .5){
                 spawnx = -1;
@@ -549,16 +560,16 @@ function detectHit(p1, p2) {
                 spawnx = 1;
             }
             if(spawnx === -1){
-                coyote.x = -50 - Math.floor(Math.random() * -600)
+                coyote.x = 0 - Math.floor(Math.random() * (canvasWidth * .6307))
             } else {
-                coyote.x = 950 + Math.floor(Math.random() * +600)
+                coyote.x = canvasWidth + Math.floor(Math.random() * (canvasWidth * .6307))
             }
 
         } else if (p1 === coyote && p2 === road ) {
             coyote.speed = 3
         } else if(p1 === mathew || p1 === sharoll && p2 === oly ){
             oly.color = "red";
-            //console.log(`${p1.constructor.name} got oly!`)
+            console.log(`${p1.constructor.name} got oly!`)
         }
     }
     else {
@@ -591,8 +602,8 @@ function detectHit(p1, p2) {
         scoreEl.innerText = score;
         b.onStoop = false;
         b.color = "white";
-        b.x = Math.floor(Math.random() * 900);
-        b.y = Math.floor(Math.random() * 600);
+        b.x = Math.floor(Math.random() * (canvasWidth-(canvasWidth * .052)));
+        b.y = Math.floor(Math.random() * (canvasHeight-(canvasHeight * .186)));
         console.log(score);
       }
     }
@@ -600,14 +611,14 @@ function detectHit(p1, p2) {
     //function randomCar
     function randomCar(){
         if(car1.y < 800){
-            car1.y += 5 * car1.speed;
+            car1.y += ((canvasHeight * canvasWidth) * .000007114) * car1.speed;
         } else {
-            car1.y = -70 - (Math.floor(Math.random() * 2000))
+            car1.y = (-1 * (canvasHeight * .09473)) - (Math.floor(Math.random() * (canvasHeight * 2.7067)))
         }
 
         if(car2.y > -70){
-            car2.y -= 5 * car1.speed
+            car2.y -= ((canvasHeight * canvasWidth) * .000007114) * car1.speed
         } else {
-            car2.y = 750 + (Math.floor(Math.random() * 2000))
+            car2.y = (canvasHeight + (canvasHeight * .015))+ (Math.floor(Math.random() * (canvasHeight * 2.7067)))
         }
     }
