@@ -4,7 +4,6 @@ ctx.scale(100, 100);
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 const scoreEl = document.querySelector(".score");
-//olyImg = document.querySelector(".oly");
 let intFrameWidth = window.innerWidth;
 let intFrameHeight = window.innerHeight;
 // console.log(intFrameWidth)
@@ -12,11 +11,30 @@ let intFrameHeight = window.innerHeight;
 
 let canvasWidth = intFrameWidth * 0.8;
 let canvasHeight = intFrameHeight * 0.9;
+// console.log(canvasWidth);
+// console.log(canvasHeight);
+
+//images
+const olyImage = new Image();
+olyImage.src = 'img/Oly.png'
+const aliveBunnyImage = new Image();
+aliveBunnyImage.src = 'img/aliveBunny.png'
+const deadBunnyImage = new Image();
+deadBunnyImage.src = 'img/deadBunny.png'
+const coyoteImage = new Image();
+coyoteImage.src =  'img/coyote.png'
+const niceMathewImage = new Image();
+niceMathewImage.src = 'img/niceMathew.png'
+const angryMathewImage = new Image();
+angryMathewImage.src = 'img/angryMathew.png'
+const sharollImage = new Image();
+sharollImage.src = 'img/angryCaroll.png'
+const carImage = new Image();
+carImage.src = 'img/car.png'
 const moonImage = new Image()
-moonImage.src= 'moon.png'
+moonImage.src= 'img/moon.png'
 let moonX = 0;
-console.log(canvasWidth);
-console.log(canvasHeight);
+
 
 //console.log(olyImg)
 let stoop;
@@ -41,17 +59,20 @@ let moon;
 
 
 class Character {
-  constructor(x, y, color, width, height, speed) {
+  constructor(x, y, color, width, height, speed,image) {
     this.x = x;
     this.y = y;
     this.color = color;
     this.width = width;
     this.height = height;
     this.speed = speed;
+    this.image = image;
     this.alive = true;
     this.hunting = false;
-    // this.drawImage = ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
+    this.drawImages = function(){
+      ctx.drawImage(this.image, this.x, this.y, this.width, this.height)
   }
+}
 
   //   renders images onto canvas
   //   image, destination x, destination y, destination width, destination height
@@ -85,8 +106,8 @@ class Character {
 }
 
 class Oly extends Character {
-  constructor(x, y, color, width, height, speed) {
-    super(x, y, color, width, height, speed);
+  constructor(x, y, color, width, height, speed,image) {
+    super(x, y, color, width, height, speed,image);
     this.bite = false;
     this.onStoop = false;
     this.hasBunny = false;
@@ -137,8 +158,8 @@ class Oly extends Character {
 }
 
 class Bunny extends Character {
-  constructor(x, y, img, width, height, speed) {
-    super(x, y, img, width, height, speed);
+  constructor(x, y, img, width, height, speed,image) {
+    super(x, y, img, width, height, speed,image);
     this.pickedUp = false;
     this.onStoop = false;
     this.scored = false;
@@ -171,41 +192,46 @@ window.addEventListener("DOMContentLoaded", function () {
       canvasWidth - canvasWidth * 0.05,
       canvasHeight - canvasHeight * 0.16,
       "grey",
-      canvasWidth * 0.042,
-      canvasWidth * 0.042,
-      3
+      canvasWidth * 0.055,
+      canvasWidth * 0.055,
+      3,
+      olyImage
     );
     bunny1 = new Bunny(
       Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052)),
       Math.floor(Math.random() * (canvasHeight - canvasHeight * 0.186)),
       "white",
-      canvasWidth * 0.021,
-      canvasWidth * 0.021,
-      0.3
+      canvasWidth * 0.03,
+      canvasWidth * 0.03,
+      0.3,
+      aliveBunnyImage
     );
     bunny2 = new Bunny(
       Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052)),
       Math.floor(Math.random() * (canvasHeight - canvasHeight * 0.186)),
       "white",
-      canvasWidth * 0.021,
-      canvasWidth * 0.021,
-      0.3
+      canvasWidth * 0.03,
+      canvasWidth * 0.03,
+      0.3,
+      aliveBunnyImage
     );
     bunny3 = new Bunny(
       Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052)),
       Math.floor(Math.random() * (canvasHeight - canvasHeight * 0.186)),
       "white",
-      canvasWidth * 0.021,
-      canvasWidth * 0.021,
-      0.3
+      canvasWidth * 0.03,
+      canvasWidth * 0.03,
+      0.3,
+      aliveBunnyImage
     );
     coyote = new Character(
       Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052)),
       Math.floor(Math.random() * (canvasHeight - canvasHeight * 0.186)),
       "brown",
-      canvasWidth * 0.0578,
-      canvasWidth * 0.0578,
-      0.7
+      canvasWidth * 0.07,
+      canvasWidth * 0.07,
+      0.7,
+      coyoteImage
     );
     stoop = new Character(
       canvasWidth * 0.9674,
@@ -263,7 +289,8 @@ window.addEventListener("DOMContentLoaded", function () {
       "blue",
       canvasWidth * 0.0473,
       canvasHeight * 0.0812,
-      6
+      6,
+      carImage
     );
     car2 = new Character(
       canvasWidth * 0.3733,
@@ -271,23 +298,26 @@ window.addEventListener("DOMContentLoaded", function () {
       "blue",
       canvasWidth * 0.0473,
       canvasHeight * 0.0812,
-      6
-    );
+      6,
+      carImage
+    )
     sharoll = new Character(
       Math.floor(Math.random() * (canvasWidth * 0.2418)),
       Math.floor(Math.random() * (canvasHeight * 0.813)),
       "orange",
-      canvasWidth * 0.0578,
-      canvasWidth * 0.0578,
-      0.5
+      canvasWidth * 0.1,
+      canvasWidth * 0.1,
+      0.5,
+      sharollImage,
     );
     mathew = new Character(
       canvasWidth * 0.4311 + Math.floor(Math.random() * (canvasWidth * 0.4732)),
       Math.floor(Math.random() * (canvasHeight * 0.813)),
       "purple",
-      canvasWidth * 0.0578,
-      canvasWidth * 0.0578,
-      0.5
+      canvasWidth * 0.07,
+      canvasWidth * 0.1,
+      0.5,
+      niceMathewImage
     );
     timeBox = new Character(
         0, 0, "black", canvasWidth, canvasHeight * .07
@@ -305,15 +335,15 @@ window.addEventListener("DOMContentLoaded", function () {
     dash3.render();
     dash4.render();
     dash5.render();
-    sharoll.render();
-    mathew.render();
-    oly.render();
-    bunny1.render();
-    bunny2.render();
-    bunny3.render();
-    coyote.render();
-    car1.render();
-    car2.render();
+    sharoll.drawImages();
+    mathew.drawImages();
+    oly.drawImages();
+    bunny1.drawImages();
+    bunny2.drawImages();
+    bunny3.drawImages();
+    coyote.drawImages();
+    car1.drawImages();
+    car2.drawImages();
     timeBox.render();
     timerImg();
     //console.log(oly, 1);
@@ -391,9 +421,11 @@ function mathewHunt(m, dist) {
     m.y - oly.y <= dist * canvasHeight &&
     m.y - oly.y >= 0
   ) {
+    m.width = canvasWidth * 0.12,
+    m.height = canvasWidth * 0.15,
     m.x -= canvasHeight * canvasWidth * 0.000007114 * m.speed;
     m.y -= canvasHeight * canvasWidth * 0.000007114 * m.speed;
-    m.color = "red";
+    m.image = angryMathewImage;
   } else if (
     oly.hasBunny &&
     oly.x - m.x <= dist * canvasWidth &&
@@ -401,9 +433,11 @@ function mathewHunt(m, dist) {
     oly.y - m.y <= dist * canvasHeight &&
     oly.y - m.y >= 0
   ) {
+    m.width = canvasWidth * 0.12,
+    m.height = canvasWidth * 0.15,
     m.x += canvasHeight * canvasWidth * 0.000007114 * m.speed;
     m.y += canvasHeight * canvasWidth * 0.000007114 * m.speed;
-    m.color = "red";
+    m.image = angryMathewImage;
   } else if (
     oly.hasBunny &&
     m.x - oly.x <= dist * canvasWidth &&
@@ -411,9 +445,11 @@ function mathewHunt(m, dist) {
     oly.y - m.y <= dist * canvasHeight &&
     oly.y - m.y >= 0
   ) {
+    m.width = canvasWidth * 0.12,
+    m.height = canvasWidth * 0.15,
     m.x -= canvasHeight * canvasWidth * 0.000007114 * m.speed;
     m.y += canvasHeight * canvasWidth * 0.000007114 * m.speed;
-    m.color = "red";
+    m.image = angryMathewImage;
   } else if (
     oly.hasBunny &&
     oly.x - m.x <= dist * canvasWidth &&
@@ -421,11 +457,16 @@ function mathewHunt(m, dist) {
     m.y - oly.y <= dist * canvasHeight &&
     m.y - oly.y >= 0
   ) {
+    m.width = canvasWidth * 0.12,
+    m.height = canvasWidth * 0.15,
     m.x += canvasHeight * canvasWidth * 0.000007114 * m.speed;
     m.y -= canvasHeight * canvasWidth * 0.000007114 * m.speed;
-    m.color = "red";
+    m.image = angryMathewImage;
   } else {
     m.color = "purple";
+    m.image = niceMathewImage;
+    m.width = canvasWidth * 0.07,
+    m.height = canvasWidth * 0.1
   }
 }
 
@@ -555,15 +596,15 @@ function gameLoop() {
   dash3.render();
   dash4.render();
   dash5.render();
-  oly.render();
-  sharoll.render();
-  mathew.render();
-  bunny1.render();
-  bunny2.render();
-  bunny3.render();
-  coyote.render();
-  car1.render();
-  car2.render();
+  oly.drawImages();
+  sharoll.drawImages();
+  mathew.drawImages();
+  bunny1.drawImages();
+  bunny2.drawImages();
+  bunny3.drawImages();
+  coyote.drawImages();
+  car1.drawImages();
+  car2.drawImages();
   detectHit(oly, bunny1);
   detectHit(oly, bunny2);
   detectHit(oly, bunny3);
@@ -616,6 +657,7 @@ function detectHit(p1, p2) {
     if (oly.bite && p2.constructor.name === "Bunny" && oly.hasBunny === false) {
       console.log("Hit and Bit", 7);
       p2.color = "red";
+      p2.image = deadBunnyImage
       p2.alive = false;
       oly.hasBunny = true;
       p2.pickedUp = true;
@@ -700,6 +742,7 @@ function addScore(b) {
     scoreEl.innerText = score;
     b.onStoop = false;
     b.color = "white";
+    b.image = aliveBunnyImage;
     b.x = Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052));
     b.y = Math.floor(Math.random() * (canvasHeight - canvasHeight * 0.186));
     console.log(score);
@@ -723,7 +766,7 @@ function randomCar(){
 }
 
 function timerImg(){
-    moonX += (canvasWidth/500)
+    moonX += (canvasWidth/1500)
     ctx.drawImage(moonImage, moonX,10)
     if(moonX >= canvasWidth){
         //alert("game Over")
