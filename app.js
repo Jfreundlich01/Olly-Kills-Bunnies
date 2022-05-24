@@ -10,6 +10,11 @@ let gameOver = false;
 let timeRanOut = false;
 let lostScore
 let endGameEl = document.querySelector(".EndGame")
+let startGameDiv = document.querySelector(".StartGame")
+let startGame = document.querySelector(".start")
+let instructionsbtn = document.querySelector(".instructionsBtn")
+let closebtn = document.querySelector(".close")
+let instructions = document.querySelector(".instructions")
 // console.log(intFrameWidth)
 // console.log(intFrameHeight)
 
@@ -198,9 +203,17 @@ class Bunny extends Character {
 //         }
 //     }
 // }
-
-window.addEventListener("DOMContentLoaded", function () {
+instructionsbtn.addEventListener("click", function(){
+  instructions.style.display = "block"
+  closebtn.style.display = "block"
+})
+closebtn.addEventListener("click", function(){
+  instructions.style.display ="none"
+  closebtn.style.display = "none"
+})
+startGame.addEventListener("click", function () {
   (function () {
+    startGameDiv.style.display = "none"
     //const floor = document.querySelector(".floor")
     //floor.style.backgroundImage = "url('../img/betterGrass.png')"; // Oly was rendering under the floor. Tried to get it so he would redner after floor img loaded. Didn't work. Will revist later.
 

@@ -32,6 +32,31 @@ canvas{
     background-size: contain;
 
 }
+.StartGame{
+    display: block;
+    text-align: start;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transform: translateY(-50%);
+    border: 4px black solid;
+    background-color: rgba(0,0,0,.6);
+    color: white;
+    font-size: large;
+    width: fit-content;
+    padding: 10v
+}
+
+.close{
+  display: none;
+}
+
+.instructions{
+  display: none;
+}
+
 
 .EndGame{
     display: none;
