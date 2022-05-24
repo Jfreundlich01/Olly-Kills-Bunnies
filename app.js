@@ -659,11 +659,11 @@ function gameLoop() {
     addScore(bunny3);
     timerImg();
 
-    console.log(bunny1.y, bunny2.y, bunny3.y)
+    //console.log(bunny1.y, bunny2.y, bunny3.y)
 
   }
   else {
-    console.log(`Game is Over`)
+    endGame();
   }
     
   //console.log(coyote.speed)
@@ -803,9 +803,22 @@ function timerImg(){
     }
 }
 
+function endGame(){
+  endGameEl = document.querySelector(".EndGame")
+  endGameEl.style.display = "block"
+  endGameEl.innerText = "Game is over you lost!"
+}
+
 function randomSpawn(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+
+
+
+
+
+
 // //function randomCar Where cars stop when sharolls or Mathew are on the road. 
 // function randomCar(p1, p2) {
 //   let humanOnRoad =
