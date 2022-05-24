@@ -32,8 +32,10 @@ const aliveBunnyImage = new Image();
 aliveBunnyImage.src = 'img/aliveBunny.png'
 const deadBunnyImage = new Image();
 deadBunnyImage.src = 'img/deadBunny.png'
-const coyoteImage = new Image();
-coyoteImage.src =  'img/coyote.png'
+const coyoteLeftImage = new Image();
+coyoteLeftImage.src =  'img/CoyoteLeft.png'
+const coyoteRightImage = new Image();
+coyoteRightImage.src =  'img/CoyoteRight.png'
 const niceMathewImage = new Image();
 niceMathewImage.src = 'img/niceMathew.png'
 const angryMathewImage = new Image();
@@ -244,7 +246,7 @@ window.addEventListener("DOMContentLoaded", function () {
       canvasWidth * 0.07,
       canvasWidth * 0.07,
       0.7,
-      coyoteImage
+      coyoteRightImage
     );
     stoop = new Character(
       canvasWidth * 0.9674,
@@ -423,8 +425,10 @@ function moveHandler2(e) {
 function coyoteHunt() {
   if (coyote.x < oly.x) {
     coyote.x += spawnHeight * canvasWidth * 0.000007114 * coyote.speed;
+    coyote.image = coyoteRightImage
   } else {
     coyote.x -= spawnHeight * canvasWidth * 0.000007114 * coyote.speed;
+    coyote.image = coyoteLeftImage
   }
 
   if (coyote.y < oly.y) {
