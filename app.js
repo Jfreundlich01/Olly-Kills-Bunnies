@@ -433,62 +433,62 @@ function coyoteHunt() {
 
 //Mathew Hunt you
 function mathewHunt(m, dist) {
-  if (
-    oly.hasBunny &&
-    m.x - oly.x <= dist * canvasWidth &&
-    m.x - oly.x >= 0 &&
-    m.y - oly.y <= dist * spawnHeight &&
-    m.y - oly.y >= 0
-  ) {
-    m.width = canvasWidth * 0.12,
-    m.height = canvasWidth * 0.15,
-    m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.image = angryMathewImage;
-  } else if (
-    oly.hasBunny &&
-    oly.x - m.x <= dist * canvasWidth &&
-    oly.x - m.x >= 0 &&
-    oly.y - m.y <= dist * spawnHeight &&
-    oly.y - m.y >= 0
-  ) {
-    m.width = canvasWidth * 0.12,
-    m.height = canvasWidth * 0.15,
-    m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.image = angryMathewImage;
-  } else if (
-    oly.hasBunny &&
-    m.x - oly.x <= dist * canvasWidth &&
-    m.x - oly.x >= 0 &&
-    oly.y - m.y <= dist * spawnHeight &&
-    oly.y - m.y >= 0
-  ) {
-    m.width = canvasWidth * 0.12,
-    m.height = canvasWidth * 0.15,
-    m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.image = angryMathewImage;
-  } else if (
-    oly.hasBunny &&
-    oly.x - m.x <= dist * canvasWidth &&
-    oly.x - m.x >= 0 &&
-    m.y - oly.y <= dist * spawnHeight &&
-    m.y - oly.y >= 0
-  ) {
-    m.width = canvasWidth * 0.12,
-    m.height = canvasWidth * 0.15,
-    m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
-    m.image = angryMathewImage;
-  } else {
-    m.color = "purple";
-    m.image = niceMathewImage;
-    m.width = canvasWidth * 0.07,
-    m.height = canvasWidth * 0.1
-  }
-}
-
+    if (
+      oly.hasBunny &&
+      m.x - oly.x <= dist * canvasWidth &&
+      m.x - oly.x >= 0 &&
+      m.y - oly.y <= dist * spawnHeight &&
+      m.y - oly.y >= 0
+      ) {
+        m.width = canvasWidth * 0.12,
+        m.height = canvasWidth * 0.15,
+        m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+        m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+        m.image = angryMathewImage;
+      } else if (
+        oly.hasBunny &&
+        oly.x - m.x <= dist * canvasWidth &&
+        oly.x - m.x >= 0 &&
+        oly.y - m.y <= dist * spawnHeight &&
+        oly.y - m.y >= 0
+        ) {
+          m.width = canvasWidth * 0.12,
+          m.height = canvasWidth * 0.15,
+          m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+          m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+          m.image = angryMathewImage;
+        } else if (
+          oly.hasBunny &&
+          m.x - oly.x <= dist * canvasWidth &&
+          m.x - oly.x >= 0 &&
+          oly.y - m.y <= dist * spawnHeight &&
+          oly.y - m.y >= 0
+          ) {
+            m.width = canvasWidth * 0.12,
+            m.height = canvasWidth * 0.15,
+            m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+            m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+            m.image = angryMathewImage;
+          } else if (
+            oly.hasBunny &&
+            oly.x - m.x <= dist * canvasWidth &&
+            oly.x - m.x >= 0 &&
+            m.y - oly.y <= dist * spawnHeight &&
+            m.y - oly.y >= 0
+            ) {
+              m.width = canvasWidth * 0.12,
+              m.height = canvasWidth * 0.15,
+              m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+              m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+              m.image = angryMathewImage;
+            } else {
+              m.color = "purple";
+              m.image = niceMathewImage;
+              m.width = canvasWidth * 0.07,
+              m.height = canvasWidth * 0.1
+            }
+        }
+          
 function sharollHunt(m, dist) {
   if (
     m.x - oly.x <= dist * canvasWidth &&
@@ -567,6 +567,7 @@ function sharollHunt(m, dist) {
 //Bunny Move!
 function bunnyMove(b) {
   if (b.alive) {
+    if(b.x >= (canvasWidth *.05256) && b.x <= canvasWidth - (canvasWidth *.05256) && b.y >= (canvasHeight - spawnHeight) + (canvasHeight *.05256) && b.y <= canvasHeight - (canvasHeight *.05256))
     if (
       b.x - oly.x <= canvasWidth * 0.21 &&
       b.x - oly.x >= 0 &&
@@ -639,8 +640,8 @@ function gameLoop() {
     //   detectHit(car1,oly)
     //   detectHit(car2,oly)
     coyoteHunt();
-    mathewHunt(mathew, 0.315);
-    sharollHunt(sharoll, 0.21);
+    mathewHunt(mathew, 0.5);
+    sharollHunt(sharoll, 0.4);
     detectHit(car1, coyote);
     detectHit(car2, coyote);
     detectHit(sharoll, road);
