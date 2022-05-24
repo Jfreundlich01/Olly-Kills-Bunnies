@@ -375,22 +375,25 @@ function movementHandler(e) {
   //console.log(`OlyBite is ${oly.bite}`, 4);
   switch (e.key) {
     case "ArrowUp":
-      oly.y >= 0
+      oly.y >= (canvasHeight - spawnHeight) + (canvasHeight * .015)
         ? (oly.y -= spawnHeight * canvasWidth * 0.000007114 * oly.speed)
         : null;
       break;
 
     case "ArrowDown":
-      oly.y += spawnHeight * canvasWidth * 0.000007114 * oly.speed;
+      oly.y <= (canvasHeight) - (canvasHeight * .0812) ?
+      oly.y += spawnHeight * canvasWidth * 0.000007114 * oly.speed: null
       break;
 
     case "ArrowLeft":
-      oly.x -= spawnHeight * canvasWidth * 0.000007114 * oly.speed;
+      oly.x >= 10 ?
+      oly.x -= spawnHeight * canvasWidth * 0.000007114 * oly.speed: null
       oly.image = olyImageLeft;
       break;
 
     case "ArrowRight":
-      oly.x += spawnHeight * canvasWidth * 0.000007114 * oly.speed;
+      oly.x <= canvasWidth - 60 ? 
+      oly.x += spawnHeight * canvasWidth * 0.000007114 * oly.speed: null
       oly.image = olyImageRight;
       break;
     case " ":
