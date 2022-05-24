@@ -25,9 +25,10 @@ body {
 }
 
 canvas{
-    background-color: rgb(0,128,0, 1);
+    background-image: url('/img/betterGrass.png') ;
     width: 80vw;
     height: 90vh;
+    background-size: contain;
 
 }
 
