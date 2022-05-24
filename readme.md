@@ -16,22 +16,17 @@ You can drop the bunny and pick your speed back up.
 
 Coyotes:
 Beware. While you are known on the block for being the most ferocious feline, another beast lies in wait for you to let you guard down. A slower moving predator, hunts you with every move. 
-![Coyote](img/coyote.png)
 
 Cars:
 These mystical metal murdermachines come with no warning. Cross the road at your own parol. 
-
-![Cars](img/car1.png)
 
 which rhymes with
 
 Sharoll: 
 This lady is crazy. She has thrown wrenches at you. She has swiped you with her broom. She tried to poison you that one time! Stay clear of Caroll! 
-![Sharoll](img/angryCaroll.png)
 
 Mathew:
 Now this downstairs neighbor is confused. He seems to love you, and then hate you. Something about having a baby bunny, writhing in your teeth seems to set him off... 
-![Mathew](/niceMathew.png)
 
 and lastly 
 
@@ -56,3 +51,6 @@ As a user, I want you:
 *CSS
 *Javascript
 *Canvas
+
+## WireFrame: 
+![WireFrame](img/WireFrame.png)
