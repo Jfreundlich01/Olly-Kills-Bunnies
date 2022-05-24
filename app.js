@@ -40,8 +40,10 @@ const niceMathewImage = new Image();
 niceMathewImage.src = 'img/niceMathew.png'
 const angryMathewImage = new Image();
 angryMathewImage.src = 'img/angryMathew.png'
-const sharollImage = new Image();
-sharollImage.src = 'img/angryCaroll.png'
+const sharollRightImage = new Image();
+sharollRightImage.src = 'img/angryCaroll.png'
+const sharollLeftImage = new Image();
+sharollLeftImage.src = 'img/SharollLeft.png'
 const carImage = new Image();
 carImage.src = 'img/car1.png'
 const carImage2 = new Image();
@@ -323,7 +325,7 @@ window.addEventListener("DOMContentLoaded", function () {
       canvasWidth * 0.1,
       canvasWidth * 0.1,
       0.5,
-      sharollImage,
+      sharollRightImage
     );
     mathew = new Character(
       canvasWidth * 0.4311 + Math.floor(Math.random() * (canvasWidth * 0.4732)),
@@ -509,6 +511,7 @@ function sharollHunt(m, dist) {
     m.y - oly.y >= 0
   ) {
     m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+    m.image = sharollLeftImage
     m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
   } else if (
     oly.x - m.x <= dist * canvasWidth &&
@@ -517,6 +520,7 @@ function sharollHunt(m, dist) {
     oly.y - m.y >= 0
   ) {
     m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+    m.image = sharollRightImage
     m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
   } else if (
     m.x - oly.x <= dist * canvasWidth &&
@@ -525,6 +529,7 @@ function sharollHunt(m, dist) {
     oly.y - m.y >= 0
   ) {
     m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
+    m.image = sharollLeftImage
     m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
   } else if (
     oly.x - m.x <= dist * canvasWidth &&
@@ -533,6 +538,7 @@ function sharollHunt(m, dist) {
     m.y - oly.y >= 0
   ) {
     m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
+    m.image = sharollRightImage
     m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
   }
 }
