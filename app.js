@@ -860,8 +860,9 @@ function endGame(a){
   gameOver = true;
   endGameEl.style.display = "block"
   restartbtn = document.createElement("button")
-  restartbtn.innerText = "restart"
+  restartbtn.innerText = "Restart"
   restartbtn.classList.add("restart")
+  restartbtn.classList.add("btn")
   if(a === coyote){
     endGameEl.innerText = "Game Over. Oly was eaten by a coyote\n"
   } else if (a === mathew){
