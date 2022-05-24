@@ -7,6 +7,8 @@ const scoreEl = document.querySelector(".score");
 let intFrameWidth = window.innerWidth;
 let intFrameHeight = window.innerHeight;
 let gameOver = false;
+let timeRanOut = false;
+let lostScore
 let endGameEl = document.querySelector(".EndGame")
 // console.log(intFrameWidth)
 // console.log(intFrameHeight)
@@ -441,11 +443,12 @@ function mathewHunt(m, dist) {
       m.y - oly.y <= dist * spawnHeight &&
       m.y - oly.y >= 0
       ) {
-        m.width = canvasWidth * 0.12,
-        m.height = canvasWidth * 0.15,
+        m.width = canvasWidth * 0.12;
+        m.height = canvasWidth * 0.15;
         m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
         m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
         m.image = angryMathewImage;
+        m.hunting = true;
       } else if (
         oly.hasBunny &&
         oly.x - m.x <= dist * canvasWidth &&
@@ -453,11 +456,12 @@ function mathewHunt(m, dist) {
         oly.y - m.y <= dist * spawnHeight &&
         oly.y - m.y >= 0
         ) {
-          m.width = canvasWidth * 0.12,
-          m.height = canvasWidth * 0.15,
+          m.width = canvasWidth * 0.12;
+          m.height = canvasWidth * 0.15;
           m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
           m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
           m.image = angryMathewImage;
+          m.hunting = true;
         } else if (
           oly.hasBunny &&
           m.x - oly.x <= dist * canvasWidth &&
@@ -465,11 +469,12 @@ function mathewHunt(m, dist) {
           oly.y - m.y <= dist * spawnHeight &&
           oly.y - m.y >= 0
           ) {
-            m.width = canvasWidth * 0.12,
-            m.height = canvasWidth * 0.15,
+            m.width = canvasWidth * 0.12;
+            m.height = canvasWidth * 0.15;
             m.x -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
             m.y += spawnHeight * canvasWidth * 0.000007114 * m.speed;
             m.image = angryMathewImage;
+            m.hunting = true;
           } else if (
             oly.hasBunny &&
             oly.x - m.x <= dist * canvasWidth &&
@@ -477,16 +482,18 @@ function mathewHunt(m, dist) {
             m.y - oly.y <= dist * spawnHeight &&
             m.y - oly.y >= 0
             ) {
-              m.width = canvasWidth * 0.12,
-              m.height = canvasWidth * 0.15,
+              m.width = canvasWidth * 0.12;
+              m.height = canvasWidth * 0.15;
               m.x += spawnHeight * canvasWidth * 0.000007114 * m.speed;
               m.y -= spawnHeight * canvasWidth * 0.000007114 * m.speed;
               m.image = angryMathewImage;
+              m.hunting = true;
             } else {
               m.color = "purple";
               m.image = niceMathewImage;
-              m.width = canvasWidth * 0.07,
-              m.height = canvasWidth * 0.1
+              m.width = canvasWidth * 0.07;
+              m.height = canvasWidth * 0.1;
+              m.hunting = false
             }
         }
           
@@ -664,7 +671,6 @@ function gameLoop() {
 
   }
   else {
-    endGame();
   }
     
   //console.log(coyote.speed)
@@ -700,7 +706,10 @@ function detectHit(p1, p2) {
     } else if (p1 === oly && p2 === coyote) {
       //stand in place for end game message
       console.log("The Coyote Got you!");
+      endGame(coyote)
       oly.color = "red";
+      oly.alive = false;
+
     } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
       p1.onStoop = true;
       //console.log(this.onStoop)
@@ -734,7 +743,17 @@ function detectHit(p1, p2) {
     } else if (p1 === coyote && p2 === road) {
       coyote.speed = 3;
     } else if (p1 === mathew || (p1 === sharoll && p2 === oly)) {
-      oly.color = "red";
+      if(p1 === mathew){
+        if(mathew.hunting){
+          oly.color = "red";
+          endGame(p1)
+        } else {
+          null
+        }
+      } else {
+        oly.color = "red";
+        endGame(p1)
+      }
       //console.log(`${p1.constructor.name} got oly!`)
     } else if ((p1 === mathew || p1 === sharoll) && p2 === road){
         if(p1 === mathew){
@@ -761,6 +780,7 @@ function detectCarHit(p1, p2) {
   if (carHit) {
     if (p1 === car1 || (p1 === car2 && p2 === oly)) {
       oly.color = "red";
+      endGame(p1)
       console.log(`Oly Got hit by a car :()`);
     }
   }
@@ -801,12 +821,35 @@ function timerImg(){
     ctx.drawImage(moonImage, moonX,canvasHeight * .01353, canvasHeight * .05, canvasHeight * .05)
     if(moonX >= canvasWidth){
         gameOver = true;
+        timeRanOut = true;
+        if (score < 5){
+          lostScore = true;
+          endGame(lostScore)
+        } else {
+          lostScore = false;
+          endGame();
+        }
     }
 }
 
-function endGame(){
+function endGame(a){
+  gameOver = true;
   endGameEl.style.display = "block"
-  endGameEl.innerText = "Game is over you lost!"
+  if(a === coyote){
+    endGameEl.innerText = "Game Over. Oly was eaten by a coyote"
+  } else if (a === mathew){
+    endGameEl.innerText = "Game Over. Mathew Caught Oly with a bunny"
+  } else if (a === sharoll){
+    endGameEl.innerText = "Game Over. Sharoll finally got Oly"
+  } else if (a === car1){
+    endGameEl.innerText = "Game Over. Oly went splat"
+  } else if (a === car2){
+    endGameEl.innerText = "Game Over. Oly went splat"
+  } else if (a === lostScore && timeRanOut){
+    endGameEl.innerText = "Game Over. Oly did not get enough bunnies to impress Kate"
+  } else {
+    endGameEl.innerText = `Game Over. You did it! You won! You got ${score} bunnies! Guess who is getting wet food today?!`
+  } 
 }
 
 function randomSpawn(min,max){
