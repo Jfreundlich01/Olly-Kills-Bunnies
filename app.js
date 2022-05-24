@@ -8,6 +8,8 @@ let intFrameWidth = window.innerWidth;
 let intFrameHeight = window.innerHeight;
 let gameOver = false;
 let timeRanOut = false;
+let score = 0;
+let moonX = 0;
 let lostScore
 let endGameEl = document.querySelector(".EndGame")
 let startGameDiv = document.querySelector(".StartGame")
@@ -15,6 +17,7 @@ let startGame = document.querySelector(".start")
 let instructionsbtn = document.querySelector(".instructionsBtn")
 let closebtn = document.querySelector(".close")
 let instructions = document.querySelector(".instructions")
+let restart = document.querySelector(".restart")
 // console.log(intFrameWidth)
 // console.log(intFrameHeight)
 
@@ -55,7 +58,6 @@ const carImage2 = new Image();
 carImage2.src = 'img/car2.png'
 const moonImage = new Image()
 moonImage.src= 'img/moon.png'
-let moonX = 0;
 
 
 //console.log(olyImg)
@@ -65,7 +67,6 @@ let bunny1;
 let bunny2;
 let bunny3;
 let coyote;
-let score = 0;
 let road;
 let dash1;
 let dash2;
@@ -212,7 +213,7 @@ closebtn.addEventListener("click", function(){
   closebtn.style.display = "none"
 })
 startGame.addEventListener("click", function () {
-  (function () {
+  (function playTheGame() {
     startGameDiv.style.display = "none"
     //const floor = document.querySelector(".floor")
     //floor.style.backgroundImage = "url('../img/betterGrass.png')"; // Oly was rendering under the floor. Tried to get it so he would redner after floor img loaded. Didn't work. Will revist later.
@@ -858,21 +859,31 @@ function timerImg(){
 function endGame(a){
   gameOver = true;
   endGameEl.style.display = "block"
+  restartbtn = document.createElement("button")
+  restartbtn.innerText = "restart"
+  restartbtn.classList.add("restart")
   if(a === coyote){
-    endGameEl.innerText = "Game Over. Oly was eaten by a coyote"
+    endGameEl.innerText = "Game Over. Oly was eaten by a coyote\n"
   } else if (a === mathew){
-    endGameEl.innerText = "Game Over. Mathew Caught Oly with a bunny"
+    endGameEl.innerText = "Game Over. Mathew Caught Oly with a bunny\n"
   } else if (a === sharoll){
-    endGameEl.innerText = "Game Over. Sharoll finally got Oly"
+    endGameEl.innerText = "Game Over. Sharoll finally got Oly\n"
   } else if (a === car1){
-    endGameEl.innerText = "Game Over. Oly went splat"
+    endGameEl.innerText = "Game Over. Oly went splat\n"
   } else if (a === car2){
-    endGameEl.innerText = "Game Over. Oly went splat"
+    endGameEl.innerText = "Game Over. Oly went splat\n"
   } else if (a === lostScore && timeRanOut){
-    endGameEl.innerText = "Game Over. Oly did not get enough bunnies to impress Kate"
+    endGameEl.innerText = "Game Over. Oly did not get enough bunnies to impress Kate\n"
   } else {
-    endGameEl.innerText = `Game Over. You did it! You won! You got ${score} bunnies! Guess who is getting wet food today?!`
+    endGameEl.innerText = `Game Over. You did it! You won! You got ${score} bunnies! Guess who is getting wet food today?!\n`
   } 
+  endGameEl.appendChild(restartbtn)
+  restartbtn.addEventListener("click", function(){
+    restartGame()
+  })
+  function restartGame(){
+    window.location.reload();
+  }
 }
 
 function randomSpawn(min,max){
