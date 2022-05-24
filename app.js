@@ -7,6 +7,7 @@ const scoreEl = document.querySelector(".score");
 let intFrameWidth = window.innerWidth;
 let intFrameHeight = window.innerHeight;
 let gameOver = false;
+let endGameEl = document.querySelector(".EndGame")
 // console.log(intFrameWidth)
 // console.log(intFrameHeight)
 
@@ -804,7 +805,6 @@ function timerImg(){
 }
 
 function endGame(){
-  endGameEl = document.querySelector(".EndGame")
   endGameEl.style.display = "block"
   endGameEl.innerText = "Game is over you lost!"
 }
