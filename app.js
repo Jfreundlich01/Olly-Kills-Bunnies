@@ -31,6 +31,11 @@ let maxSpawn = canvasHeight - (canvasHeight * .0812)
 //console.log(canvasWidth);
 console.log(spawnHeight);
 
+// //BloodSplatter
+// let bloodItems = []
+// let bloodConsistency = 300
+// let gravity = 0.2
+
 //images
 const olyImageLeft = new Image();
 olyImageLeft.src = 'img/Olyleft.png'
@@ -58,7 +63,8 @@ const carImage2 = new Image();
 carImage2.src = 'img/car2.png'
 const moonImage = new Image()
 moonImage.src= 'img/moon.png'
-
+const blood1Image = new Image()
+blood1Image.src = 'img/blood1.png'
 
 //console.log(olyImg)
 let stoop;
@@ -97,35 +103,11 @@ class Character {
   }
 }
 
-  //   renders images onto canvas
-  //   image, destination x, destination y, destination width, destination height
-  //   drawImage() {
-  //       ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
-  //   }
-
   render() {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  //   //very basic move function for non Oly Characters
-  //   move() {
-  //     x += Math.floor(Math.random() * game.width);
-  //     y += Math.floor(Math.random() * game.height);
-  //   }
-
-  //   //The hunt mechanic for Coyote, and David.
-  //   hunt(oly,predator){
-  //     predator.x = oly.x;
-  //     predator.y = oly.y;
-  //   }
-
-  //   //die/hitTest
-  //   die(p1,p2){
-  //     if(hitTest){
-
-  //     }
-  // }
 }
 
 class Oly extends Character {
@@ -137,47 +119,7 @@ class Oly extends Character {
     // this.drawImage = ctx.drawImage(olyImg, this.x, this.y, this.width, this.height)
   }
 
-  //   drawImage(img) {
-  //     ctx.drawImage(img)
-  //     }
-
-  //Oly's move mechanics. Follows arrow keystrokes
-  // sayHi(){
-  //     return "hi"
-  // }
-
-  // move(e) {
-  //   console.log(`the movement was ${e.key}`);
-
-  //   switch (e.key){
-  //     case "ArrowUp":
-  //     oly.y >=0 ? oly.y -= 5 * oly.speed : null
-  //         break
-
-  //     case "ArrowDown":
-  //     oly.y += 5 * oly.speed;
-  //         break
-
-  //     case "ArrowLeft":
-  //         oly.x -= 5 * oly.speed;
-  //         break
-
-  //     case "ArrowRight":
-  //         oly.x += 5 * oly.speed;
-  //         break
-
-  // }
-  //   console.log(oly);
-  // }
-  //Oly bite mechanic. Space bar click bites. If collision with deadBunny and bite ==> hasBunny.
-  //   bite(e){
-  //     if(e.key === " "){
-  //         console.log(`it is ${this.bite} about oly's bite`)
-  //         return this.bite = true;
-  //         // killBunny(oly.aliveBunny)
-  //         // append(oly.deadBunny)
-  //     }
-  //   }
+  
 }
 
 class Bunny extends Character {
@@ -190,20 +132,6 @@ class Bunny extends Character {
   //Add score once dead bunny is dropped on stoop.
 }
 
-// class David extends Character {
-//     constructor(x, y, img, width, height, speed) {
-//         super(x, y, img, width, height, speed);
-// }
-//     //Activates David hunt. Switches his img to Angry David.
-//     getAngry(){
-//         if(hunting){
-//             img.src = "Angry David"
-//             this.hunt(oly,david)
-//         } else {
-//             img.src = "nice David"
-//         }
-//     }
-// }
 instructionsbtn.addEventListener("click", function(){
   instructions.style.display = "block"
   closebtn.style.display = "block"
@@ -357,6 +285,13 @@ startGame.addEventListener("click", function () {
       moonX,canvasHeight * .01353,"white", canvasWidth * .0210, canvasWidth * .0210, 1, moonImage
     )
 
+    bloodstains = []
+    for(i = 0; i < 20;i++){
+      bloodstains.push(new Character(-100,-100,"red",50,50,0,blood1Image))
+    }
+    console.log(bloodstains)
+   
+
     console.log(timeBox.height)
     console.log(bunny1.constructor.name);
     // floor.onload = function(){
@@ -380,6 +315,9 @@ startGame.addEventListener("click", function () {
     car1.drawImages();
     car2.drawImages();
     timeBox.render();
+    bloodstains.forEach(image =>{
+      image.drawImages()
+    })
     timerImg();
     //console.log(oly, 1);
     //console.log(bunny1, 2);
@@ -690,6 +628,9 @@ function gameLoop() {
     addScore(bunny2);
     addScore(bunny3);
     timerImg();
+    bloodstains.forEach(image =>{
+      image.drawImages()
+    })
 
     //console.log(bunny1.y, bunny2.y, bunny3.y)
 
@@ -719,8 +660,14 @@ function detectHit(p1, p2) {
       console.log("Hit and Bit", 7);
       p2.color = "red";
       p2.image = deadBunnyImage
-      p2.alive = false;
+      if(p2.alive){
+        randomBloodNum = Math.floor(Math.random()*bloodstains.length)
+        bloodstains[randomBloodNum].x = p2.x
+        bloodstains[randomBloodNum].y = p2.y
+      }
+
       oly.hasBunny = true;
+      p2.alive = false;
       p2.pickedUp = true;
       //attach bunnies to Oly
     } else if (p2.pickedUp === true) {
@@ -904,6 +851,64 @@ function randomSpawn(min,max){
 
 
 
+// function bloodSplatter(x,y,arr){
+//   for (let i = 0; i < 10; i++) {
+//     let s = Math.random() * 5;
+//     let distancex = (Math.random() * 5) * bloodConsistency
+//     let distancey = (Math.random() * 5) * bloodConsistency
+
+//     arr.push({
+//         x: x,
+//         y: y,
+//         dx: distancex, 
+//         dy: distancey,
+//         size: s
+//     })
+// }
+// }
+// console.log(bloodItems)
+
+// const shadow = document.createElement('canvas')
+// const sctx = shadow.getContext('2d');
+
+// function drawSplat(arr) {
+
+//   let i = arr.length
+//   while (i--) {
+//       let t = arr[i];
+//       let x = t.x,
+//           y = t.y,
+//           s = t.size;
+//       circle(x, y, s, ctx)
+
+//       t.dy -= gravity
+//       t.x -= t.dx
+//       t.y -= t.dy
+//       t.size -= 0.05;
+
+//       if (arr[i].size < 0.3 || Math.random() < bloodConsistency) {
+//           circle(x, y, s, sctx)
+//           arr.splice(i, 1)
+
+//       }
+
+//   }
+
+//   ctx.drawImage(shadow, 0, 0)    
+//   //sctx.drawImage(shadow, 0, 0.5)
+
+// }
+
+// function circle(x, y, s, c) {
+
+//   c.beginPath()
+//   c.arc(x, y, s * 5, 0, 2 * Math.PI, false);
+//   c.fill()
+//   c.closePath()
+
+// }
+
+
 
 
 
@@ -961,3 +966,5 @@ function randomSpawn(min,max){
 //         Math.floor(Math.random() * (spawnHeight * 2.7067));
 //     }
 //   }
+
+

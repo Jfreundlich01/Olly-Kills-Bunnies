@@ -30,8 +30,15 @@ canvas{
     width: 80vw;
     height: 90vh;
     background-size: contain;
+    
+  }
 
-}
+  .btn{
+    color: white;
+    margin: 0 auto;
+    display: inline-block;
+  }
+  
 .StartGame{
     display: block;
     text-align: start;
@@ -39,7 +46,7 @@ canvas{
     top: 50%;
     left: 0;
     right: 0;
-    margin: auto;
+    margin: 0 auto;
     transform: translateY(-50%);
     border: 4px black solid;
     background-color: rgba(0,0,0,.6);
@@ -49,12 +56,18 @@ canvas{
     padding: 10v
 }
 
+.button-cont{
+  margin: 0 auto;
+}
+
 .close{
   display: none;
 }
 
 .instructions{
   display: none;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .EndGame{
@@ -72,8 +85,4 @@ canvas{
     font-size: x-large;
     width: fit-content;
     padding: 10vw
-}
-
-.btn{
-  color: white;
 }
