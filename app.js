@@ -735,6 +735,7 @@ function detectHit(p1, p2) {
       //     console.log(`Oly Got hit by a car :()`)
     } else if (p1 === car1 || (p1 === car2 && p2 === coyote)) {
       console.log(`coyote was hit`);
+      new Audio('/sound/CarCrash.mp3').play()
       if (Math.random() < 0.5) {
         spawny = -1;
       } else {
