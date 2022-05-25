@@ -65,6 +65,8 @@ const moonImage = new Image()
 moonImage.src= 'img/moon.png'
 const blood1Image = new Image()
 blood1Image.src = 'img/blood1.png'
+const blood2Image = new Image()
+blood2Image.src = 'img/coyoteHitBlood.png'
 
 //console.log(olyImg)
 let stoop;
@@ -289,7 +291,11 @@ startGame.addEventListener("click", function () {
     for(i = 0; i < 20;i++){
       bloodstains.push(new Character(-100,-100,"red",50,50,0,blood1Image))
     }
-    console.log(bloodstains)
+    coyoteStains = []
+    for(i = 0; i < 20;i++){
+      coyoteStains.push(new Character(-100,-100,"red",50,50,0,blood2Image))
+    }
+
    
 
     console.log(timeBox.height)
@@ -316,6 +322,9 @@ startGame.addEventListener("click", function () {
     car2.drawImages();
     timeBox.render();
     bloodstains.forEach(image =>{
+      image.drawImages()
+    })
+    coyoteStains.forEach(image =>{
       image.drawImages()
     })
     timerImg();
@@ -631,6 +640,9 @@ function gameLoop() {
     bloodstains.forEach(image =>{
       image.drawImages()
     })
+    coyoteStains.forEach(image =>{
+      image.drawImages()
+    })
 
     //console.log(bunny1.y, bunny2.y, bunny3.y)
 
@@ -683,6 +695,9 @@ function detectHit(p1, p2) {
     } else if (p1 === car1 || (p1 === car2 && p2 === coyote)) {
       console.log(`coyote was hit`);
       new Audio('/sound/CarCrash.mp3').play()
+      randomBloodNum2 = Math.floor(Math.random()*bloodstains.length)
+      coyoteStains[randomBloodNum2].x = p2.x
+      coyoteStains[randomBloodNum2].y = p2.y
       if (Math.random() < 0.5) {
         spawny = -1;
       } else {
