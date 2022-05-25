@@ -663,7 +663,7 @@ function gameLoop() {
     detectHit(oly, bunny1);
     detectHit(oly, bunny2);
     detectHit(oly, bunny3);
-    detectHit(oly, coyote);
+    detectHitSmallerHitBox(coyote,oly);
     detectHit(bunny1, stoop);
     detectHit(bunny2, stoop);
     detectHit(bunny3, stoop);
@@ -680,8 +680,8 @@ function gameLoop() {
     detectHit(mathew, road);
     detectCarHit(car1, oly);
     detectCarHit(car2, oly);
-    detectHit(mathew, oly);
-    detectHit(sharoll, oly);
+    detectHitSmallerHitBox(mathew, oly);
+    detectHitSmallerHitBox(sharoll, oly);
     randomCar();
     bunnyMove(bunny1);
     bunnyMove(bunny2);
@@ -727,13 +727,6 @@ function detectHit(p1, p2) {
       p2.x = oly.x;
       p2.y = oly.y;
       oly.speed = 2;
-    } else if (p1 === oly && p2 === coyote) {
-      //stand in place for end game message
-      console.log("The Coyote Got you!");
-      endGame(coyote)
-      oly.color = "red";
-      oly.alive = false;
-
     } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
       p1.onStoop = true;
       //console.log(this.onStoop)
@@ -766,19 +759,6 @@ function detectHit(p1, p2) {
       }
     } else if (p1 === coyote && p2 === road) {
       coyote.speed = 3;
-    } else if (p1 === mathew || (p1 === sharoll && p2 === oly)) {
-      if(p1 === mathew){
-        if(mathew.hunting){
-          oly.color = "red";
-          endGame(p1)
-        } else {
-          null
-        }
-      } else {
-        oly.color = "red";
-        endGame(p1)
-      }
-      //console.log(`${p1.constructor.name} got oly!`)
     } else if ((p1 === mathew || p1 === sharoll) && p2 === road){
         if(p1 === mathew){
             mathew.x += 5
@@ -793,6 +773,36 @@ function detectHit(p1, p2) {
   //console.log(oly.speed)
 }
 
+
+function detectHitSmallerHitBox(p1,p2){
+  let hitTest =
+    p1.y + (p1.height/1.5) > p2.y &&
+    p1.y < p2.y + p2.height &&
+    p1.x + (p1.width/1.5) > p2.x &&
+    p1.x < p2.x + p2.width;
+
+    if(hitTest){
+      if (p1 === coyote && p2 === oly) {
+        //stand in place for end game message
+        console.log("The Coyote Got you!");
+        endGame(coyote)
+        oly.color = "red";
+        oly.alive = false;
+      } else if (p1 === mathew || (p1 === sharoll && p2 === oly)) {
+        if(p1 === mathew){
+          if(mathew.hunting){
+            oly.color = "red";
+            endGame(p1)
+          } else {
+            null
+          }
+        } else {
+          oly.color = "red";
+          endGame(p1)
+        }
+    }
+}
+}
 
 function detectCarHit(p1, p2) {
   let carHit =
