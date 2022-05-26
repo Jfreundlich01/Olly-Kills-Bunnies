@@ -4,8 +4,6 @@ ctx.scale(100, 100);
 game.setAttribute("height", getComputedStyle(game)["height"]);
 game.setAttribute("width", getComputedStyle(game)["width"]);
 const scoreEl = document.querySelector(".score");
-let intFrameWidth = window.innerWidth;
-let intFrameHeight = window.innerHeight;
 let gameOver = false;
 let timeRanOut = false;
 let score = 0;
@@ -21,10 +19,14 @@ let restart = document.querySelector(".restart")
 // console.log(intFrameWidth)
 // console.log(intFrameHeight)
 
+let intFrameWidth = window.innerWidth;
+let intFrameHeight = window.innerHeight;
 let canvasWidth = intFrameWidth * 0.8;
 let canvasHeight = (intFrameHeight * 0.9);
 let spawnHeight = canvasHeight - (canvasHeight * .06999)
 console.log(canvasHeight)
+
+const carCrashSound = document.querySelector(".carCrash")
 
 let minSpawn = (canvasHeight - spawnHeight)
 let maxSpawn = canvasHeight - (canvasHeight * .0812)
@@ -688,7 +690,7 @@ function detectHit(p1, p2) {
       //     console.log(`Oly Got hit by a car :()`)
     } else if (p1 === car1 || (p1 === car2 && p2 === coyote)) {
       console.log(`coyote was hit`);
-      new Audio('sound/CarCrash.mp3').play()
+      carCrashSound.play()
       randomBloodNum2 = Math.floor(Math.random()*bloodstains.length)
       coyoteStains[randomBloodNum2].x = p2.x
       coyoteStains[randomBloodNum2].y = p2.y
