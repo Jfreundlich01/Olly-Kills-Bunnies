@@ -649,13 +649,7 @@ function gameLoop() {
   }
   else {
   }
-    
-  //console.log(coyote.speed)
-  //console.log(oly.speed)
-  //   console.log(`bunny1x: ${bunny1.x} bunny1y: ${bunny1.y}`);
-  //   console.log(`Olyx: ${oly.x} olyy: ${oly.y}`);
-  //console.log(car2.y)
-
+  
 }
 //detect hit function
 function detectHit(p1, p2) {
@@ -814,7 +808,7 @@ function randomCar(){
 }
 
 function timerImg(){
-    moonX += (canvasWidth/500)
+    moonX += (canvasWidth/1500)
     ctx.drawImage(moonImage, moonX,canvasHeight * .01353, canvasHeight * .05, canvasHeight * .05)
     if(moonX >= canvasWidth){
         gameOver = true;
@@ -864,122 +858,5 @@ function randomSpawn(min,max){
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-
-
-// function bloodSplatter(x,y,arr){
-//   for (let i = 0; i < 10; i++) {
-//     let s = Math.random() * 5;
-//     let distancex = (Math.random() * 5) * bloodConsistency
-//     let distancey = (Math.random() * 5) * bloodConsistency
-
-//     arr.push({
-//         x: x,
-//         y: y,
-//         dx: distancex, 
-//         dy: distancey,
-//         size: s
-//     })
-// }
-// }
-// console.log(bloodItems)
-
-// const shadow = document.createElement('canvas')
-// const sctx = shadow.getContext('2d');
-
-// function drawSplat(arr) {
-
-//   let i = arr.length
-//   while (i--) {
-//       let t = arr[i];
-//       let x = t.x,
-//           y = t.y,
-//           s = t.size;
-//       circle(x, y, s, ctx)
-
-//       t.dy -= gravity
-//       t.x -= t.dx
-//       t.y -= t.dy
-//       t.size -= 0.05;
-
-//       if (arr[i].size < 0.3 || Math.random() < bloodConsistency) {
-//           circle(x, y, s, sctx)
-//           arr.splice(i, 1)
-
-//       }
-
-//   }
-
-//   ctx.drawImage(shadow, 0, 0)    
-//   //sctx.drawImage(shadow, 0, 0.5)
-
-// }
-
-// function circle(x, y, s, c) {
-
-//   c.beginPath()
-//   c.arc(x, y, s * 5, 0, 2 * Math.PI, false);
-//   c.fill()
-//   c.closePath()
-
-// }
-
-
-
-
-
-
-// //function randomCar Where cars stop when sharolls or Mathew are on the road. 
-// function randomCar(p1, p2) {
-//   let humanOnRoad =
-//     p1.y + p1.height > p2.y &&
-//     p1.y < p2.y + p2.height &&
-//     p1.x + p1.width > p2.x &&
-//     p1.x < p2.x + p2.width;
-
-                                          
-//     if(humanOnRoad && (p1.y - car1.y <= (spawnHeight * 0.1353)) && (p1.y - car2.y <= - (spawnHeight * 0.1353))){
-//         console.log("trigger 1")
-//         car1.y = car1.y;
-//         car2.y = car2.y
-//   } else if (humanOnRoad && (p1.y - car1.y <= (spawnHeight * 0.1353))) {
-//     console.log("trigger 2")
-//     car1.y = car1.y;
-//     if (car2.y > -70) {
-//         car2.y -= spawnHeight * canvasWidth * 0.000007114 * car1.speed;
-//       } else {
-//         car2.y =
-//           spawnHeight +
-//           spawnHeight * 0.015 +
-//           Math.floor(Math.random() * (spawnHeight * 2.7067));
-//       }
-//   } else if (humanOnRoad && (p1.y - car2.y <= -(spawnHeight * 0.1353))){
-//     car2.y = car2.y;
-//     console.log("trigger 3")
-//     if (car1.y < 800) {
-//         car1.y += spawnHeight * canvasWidth * 0.000007114 * car1.speed;
-//       } else {
-//         car1.y =
-//           -1 * (spawnHeight * 0.09473) -
-//           Math.floor(Math.random() * (spawnHeight * 2.7067));
-//       }
-//   }
-//   else {
-//     if (car1.y < 800) {
-//       car1.y += spawnHeight * canvasWidth * 0.000007114 * car1.speed;
-//     } else {
-//       car1.y =
-//         -1 * (spawnHeight * 0.09473) -
-//         Math.floor(Math.random() * (spawnHeight * 2.7067));
-//     }
-
-//     if (car2.y > -70) {
-//       car2.y -= spawnHeight * canvasWidth * 0.000007114 * car1.speed;
-//     } else {
-//       car2.y =
-//         spawnHeight +
-//         spawnHeight * 0.015 +
-//         Math.floor(Math.random() * (spawnHeight * 2.7067));
-//     }
-//   }
 
 

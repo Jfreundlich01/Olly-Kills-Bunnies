@@ -19,9 +19,9 @@ body {
     width: 100%;
 } */
 
-.score{
-    font-size: 72;
-    color: blue;
+.score-cont{
+    font-size: 40px;
+    color: white;
 }
 
 canvas{
