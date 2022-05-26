@@ -52,7 +52,7 @@ canvas{
     border: 4px black solid;
     background-color: rgba(0,0,0,.6);
     color: white;
-    font-size: large;
+    font-size: medium;
     width: fit-content;
     padding: 10v
 }
