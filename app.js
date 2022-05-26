@@ -649,7 +649,7 @@ function gameLoop() {
   }
   else {
   }
-  
+    
 }
 //detect hit function
 function detectHit(p1, p2) {
