@@ -597,6 +597,12 @@ function gameLoop() {
     dash3.render();
     dash4.render();
     dash5.render();
+    bloodstains.forEach(image =>{
+      image.drawImages()
+    })
+    coyoteStains.forEach(image =>{
+      image.drawImages()
+    })
     oly.drawImages();
     sharoll.drawImages();
     mathew.drawImages();
@@ -637,12 +643,6 @@ function gameLoop() {
     addScore(bunny2);
     addScore(bunny3);
     timerImg();
-    bloodstains.forEach(image =>{
-      image.drawImages()
-    })
-    coyoteStains.forEach(image =>{
-      image.drawImages()
-    })
 
     //console.log(bunny1.y, bunny2.y, bunny3.y)
 
