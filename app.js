@@ -297,7 +297,7 @@ startGame.addEventListener("click", function () {
     }
     coyoteStains = []
     for(i = 0; i < 20;i++){
-      coyoteStains.push(new Character(-100,-100,"red",50,50,0,blood2Image))
+      coyoteStains.push(new Character(-100,-100,"red",70,70,0,blood2Image))
     }
 
    
@@ -341,7 +341,7 @@ startGame.addEventListener("click", function () {
   document.addEventListener("keyup", moveHandler2);
 });
 
-//Oly Move Function Key Down
+//Oly Move Function on Key Down Event
 function movementHandler(e) {
   //console.log(`the movement was ${e.key}`, 3)
   //console.log(`OlyBite is ${oly.bite}`, 4);
@@ -471,7 +471,7 @@ function mathewHunt(m, dist) {
               m.hunting = false
             }
         }
-          
+//sharollHunt
 function sharollHunt(m, dist) {
   if (
     m.x - oly.x <= dist * canvasWidth &&
@@ -593,9 +593,9 @@ function bunnyMove(b) {
 
 //Game Loop
 function gameLoop() {
-  //clear baord every loop
   if(!gameOver){
-
+    
+    //clear baord every loop
     ctx.clearRect(0, 0, game.width, game.height);
     //render my characters every loop
     stoop.render();
@@ -688,18 +688,22 @@ function detectHit(p1, p2) {
       p2.x = oly.x;
       p2.y = oly.y;
       oly.speed = 2;
-    } else if (p1.constructor.name === "Bunny" && p2 === stoop) {
+
+    } else if (p1.constructor.name === "Bunny" && p2 === stoop) { /* drop Buinnies off */
       p1.onStoop = true;
       //console.log(this.onStoop)
       // } else if (p1 === car1 || p1 === car2 && p2 === oly){
       //     oly.color = "red"
       //     console.log(`Oly Got hit by a car :()`)
     } else if (p1 === car1 || (p1 === car2 && p2 === coyote)) {
+      //Coyote Hit 
       console.log(`coyote was hit`);
       carCrashSound.play()
+      //Grab random bloodtain
       randomBloodNum2 = Math.floor(Math.random()*bloodstains.length)
       coyoteStains[randomBloodNum2].x = p2.x
       coyoteStains[randomBloodNum2].y = p2.y
+      //Coyote Respawn Code
       if (Math.random() < 0.5) {
         spawny = -1;
       } else {
@@ -738,7 +742,7 @@ function detectHit(p1, p2) {
   //console.log(oly.speed)
 }
 
-
+//smallerHitbox for coyote,mathew and caroll
 function detectHitSmallerHitBox(p1,p2){
   let hitTest =
     p1.y + (p1.height/1.5) > p2.y &&
@@ -748,7 +752,6 @@ function detectHitSmallerHitBox(p1,p2){
 
     if(hitTest){
       if (p1 === coyote && p2 === oly) {
-        //stand in place for end game message
         console.log("The Coyote Got you!");
         endGame(coyote)
         oly.color = "red";
@@ -768,7 +771,7 @@ function detectHitSmallerHitBox(p1,p2){
     }
 }
 }
-
+//Detect Car Hit
 function detectCarHit(p1, p2) {
   let carHit =
     p1.y + p1.height > p2.y &&
@@ -785,6 +788,7 @@ function detectCarHit(p1, p2) {
   }
 }
 
+//Increment Socrew
 function addScore(b) {
   if (b.onStoop === true) {
     console.log(`Add Score Ran`);
@@ -792,6 +796,7 @@ function addScore(b) {
     scoreEl.innerText = score;
     b.onStoop = false;
     b.color = "white";
+    //respawn bunny
     b.image = aliveBunnyImage;
     b.x = Math.floor(Math.random() * (canvasWidth - canvasWidth * 0.052));
     b.y = Math.floor(Math.random() * (spawnHeight - spawnHeight * 0.186));
@@ -800,7 +805,7 @@ function addScore(b) {
 }
 
 
-
+//spawn cars randomly
 function randomCar(){
     if(car1.y < 800){
         car1.y += ((spawnHeight * canvasWidth) * .000007114) * car1.speed;
@@ -815,6 +820,7 @@ function randomCar(){
     }
 }
 
+//move moon across width of screen acts as game time
 function timerImg(){
     moonX += (canvasWidth/1000)
     ctx.drawImage(moonImage, moonX,canvasHeight * .01353, canvasHeight * .05, canvasHeight * .05)
@@ -831,6 +837,7 @@ function timerImg(){
     }
 }
 
+//end game function
 function endGame(a){
   gameOver = true;
   endGameEl.style.display = "block"
