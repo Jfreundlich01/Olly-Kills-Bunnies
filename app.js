@@ -120,6 +120,8 @@ class Oly extends Character {
     this.bite = false;
     this.onStoop = false;
     this.hasBunny = false;
+    this.movingRight = false;
+    this.movingLeft = true;
     // this.drawImage = ctx.drawImage(olyImg, this.x, this.y, this.width, this.height)
   }
 
@@ -197,11 +199,11 @@ startGame.addEventListener("click", function () {
       coyoteRightImage
     );
     stoop = new Character(
-      canvasWidth * 0.9674,
+      canvasWidth * 0.9,
       spawnHeight * 0.83897,
       "black",
-      canvasWidth * 0.042,
-      spawnHeight * 0.10827,
+      canvasWidth * 0.1,
+      spawnHeight * 0.13827,
       0
     );
     road = new Character(
@@ -359,12 +361,16 @@ function movementHandler(e) {
       oly.x >= 10 ?
       oly.x -= spawnHeight * canvasWidth * 0.000007114 * oly.speed: null
       oly.image = olyImageLeft;
+      oly.movingRight = false;
+      oly.movingLeft = true;
       break;
 
     case "ArrowRight":
       oly.x <= canvasWidth - 60 ? 
       oly.x += spawnHeight * canvasWidth * 0.000007114 * oly.speed: null
       oly.image = olyImageRight;
+      oly.movingLeft = false;
+      oly.movingRight = true;
       break;
     case " ":
       oly.bite = true;
@@ -810,12 +816,12 @@ function randomCar(){
 }
 
 function timerImg(){
-    moonX += (canvasWidth/1500)
+    moonX += (canvasWidth/1000)
     ctx.drawImage(moonImage, moonX,canvasHeight * .01353, canvasHeight * .05, canvasHeight * .05)
     if(moonX >= canvasWidth){
         gameOver = true;
         timeRanOut = true;
-        if (score < 5){
+        if (score < 3){
           lostScore = true;
           endGame(lostScore)
         } else {
